@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:anthos/models/operation/operation.dart';
-import 'package:anthos/models/tezos/tezos.dart';
+import '../models/operation/operation.dart';
+import '../models/tezos/tezos.dart';
 
 import '../models/account/account.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:anthos/views/home/home.vm.dart';
+import '../views/home/home.vm.dart';
 import '../services/repository.dart';
 
 final repositoryProvider = Provider<Repository>(

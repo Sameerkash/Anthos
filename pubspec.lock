@@ -681,6 +681,13 @@ packages:
       url: "https://github.com/SushantChandla/Tezster_dart.git"
     source: git
     version: "2.1.2-beta.2"
+  timelines:
+    dependency: "direct main"
+    description:
+      name: timelines
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   timing:
     dependency: transitive
     description:

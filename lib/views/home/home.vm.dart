@@ -1,6 +1,6 @@
-import 'package:anthos/models/tezos/tezos.dart';
-import 'package:anthos/provider/provider.dart';
-import 'package:anthos/services/repository.dart';
+import '../../models/tezos/tezos.dart';
+import '../../provider/provider.dart';
+import '../../services/repository.dart';
 
 import '../../models/account/account.dart';
 import '../../models/operation/operation.dart';

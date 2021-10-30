@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:anthos/models/tezos/tezos.dart';
+import '../../../models/tezos/tezos.dart';
 
 import '../../../models/account/account.dart';
 import '../../../widgets/display.text.dart';

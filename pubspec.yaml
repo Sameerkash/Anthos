@@ -50,6 +50,7 @@ dependencies:
   http: ^0.13.4
   path_provider: ^2.0.6
   intl: ^0.17.0
+  timelines: ^0.1.0
 
 dev_dependencies:
   flutter_test:

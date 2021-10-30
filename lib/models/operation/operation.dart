@@ -1,4 +1,4 @@
-import 'package:anthos/models/common/common.dart';
+import '../common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'operation.g.dart';
 part 'operation.freezed.dart';
