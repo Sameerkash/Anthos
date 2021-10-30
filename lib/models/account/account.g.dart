@@ -28,10 +28,10 @@ Map<String, dynamic> _$$UserAccountLocalToJson(_$UserAccountLocal instance) =>
 
 _$UserAccount _$$UserAccountFromJson(Map<String, dynamic> json) =>
     _$UserAccount(
-      alias: json['alias'] as String,
       address: json['address'] as String,
-      publicKey: json['publicKey'] as String,
       balance: json['balance'] as int,
+      publicKey: json['publicKey'] as String?,
+      alias: json['alias'] as String?,
       revealed: json['revealed'] as bool?,
       counter: json['counter'] as int?,
       privateKey: json['privateKey'] as String?,
@@ -53,10 +53,10 @@ _$UserAccount _$$UserAccountFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$UserAccountToJson(_$UserAccount instance) =>
     <String, dynamic>{
-      'alias': instance.alias,
       'address': instance.address,
-      'publicKey': instance.publicKey,
       'balance': instance.balance,
+      'publicKey': instance.publicKey,
+      'alias': instance.alias,
       'revealed': instance.revealed,
       'counter': instance.counter,
       'privateKey': instance.privateKey,
@@ -125,4 +125,22 @@ Map<String, dynamic> _$$ContractAccountToJson(_$ContractAccount instance) =>
       'lastActivityTime': instance.lastActivityTime,
       'typeHash': instance.typeHash,
       'codeHash': instance.codeHash,
+    };
+
+_$EmptyAccount _$$EmptyAccountFromJson(Map<String, dynamic> json) =>
+    _$EmptyAccount(
+      address: json['address'] as String,
+      balance: json['balance'] as int? ?? 0,
+      counter: json['counter'] as int?,
+      privateKey: json['privateKey'] as String?,
+      secret: json['secret'] as String?,
+    );
+
+Map<String, dynamic> _$$EmptyAccountToJson(_$EmptyAccount instance) =>
+    <String, dynamic>{
+      'address': instance.address,
+      'balance': instance.balance,
+      'counter': instance.counter,
+      'privateKey': instance.privateKey,
+      'secret': instance.secret,
     };

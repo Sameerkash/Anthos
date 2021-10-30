@@ -41,9 +41,15 @@ dependencies:
   hooks_riverpod: ^0.14.0+5
   sembast: ^3.1.1
   tezster_dart:
-    git: https://github.com/SushantChandla/Tezster_dart.git
+    git:
+      url: https://github.com/SushantChandla/Tezster_dart.git
+      ref: refactoring
   animations: ^2.0.2
   flutter_secure_storage: ^4.2.1
+  dio: ^4.0.1
+  http: ^0.13.4
+  path_provider: ^2.0.6
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

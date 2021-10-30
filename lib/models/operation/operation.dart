@@ -1,3 +1,4 @@
+import 'package:anthos/models/common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'operation.g.dart';
 part 'operation.freezed.dart';
@@ -10,6 +11,7 @@ class Operation with _$Operation {
     required final String timestamp,
     required final String block,
     required final String hash,
+    required final Sender sender,
     final int? counter,
     final int? gasLimit,
     final int? gasUsed,
@@ -24,6 +26,6 @@ class Operation with _$Operation {
     final String? parameters,
   }) = _TransactionOperation;
 
-   factory Operation.fromJson(Map<String, dynamic> json) =>
+  factory Operation.fromJson(Map<String, dynamic> json) =>
       _$OperationFromJson(json);
 }

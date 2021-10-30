@@ -1,9 +1,10 @@
+import 'package:anthos/models/common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'account.g.dart';
 part 'account.freezed.dart';
 
-@Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.pascal)
+@Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.none)
 class Account with _$Account {
   const factory Account.userLocal({
     required final String address,
@@ -15,10 +16,10 @@ class Account with _$Account {
   }) = UserAccountLocal;
 
   const factory Account.user({
-    required final String alias,
     required final String address,
-    required final String publicKey,
     required final int balance,
+    final String? publicKey,
+    final String? alias,
     final bool? revealed,
     final int? counter,
     final String? privateKey,
@@ -62,6 +63,14 @@ class Account with _$Account {
     final int? codeHash,
   }) = ContractAccount;
 
-  factory Account.fromJson(Map<String, dynamic> json) =>
+  const factory Account.empty({
+    required final String address,
+    @Default(0) final int? balance,
+    final int? counter,
+    final String? privateKey,
+    final String? secret,
+  }) = EmptyAccount;
+
+  factory Account.fromJson(Map<String, Object?> json) =>
       _$AccountFromJson(json);
 }

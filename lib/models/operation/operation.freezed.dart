@@ -27,6 +27,7 @@ class _$OperationTearOff {
       required String timestamp,
       required String block,
       required String hash,
+      required Sender sender,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -45,6 +46,7 @@ class _$OperationTearOff {
       timestamp: timestamp,
       block: block,
       hash: hash,
+      sender: sender,
       counter: counter,
       gasLimit: gasLimit,
       gasUsed: gasUsed,
@@ -75,6 +77,7 @@ mixin _$Operation {
   String get timestamp => throw _privateConstructorUsedError;
   String get block => throw _privateConstructorUsedError;
   String get hash => throw _privateConstructorUsedError;
+  Sender get sender => throw _privateConstructorUsedError;
   int? get counter => throw _privateConstructorUsedError;
   int? get gasLimit => throw _privateConstructorUsedError;
   int? get gasUsed => throw _privateConstructorUsedError;
@@ -96,6 +99,7 @@ mixin _$Operation {
             String timestamp,
             String block,
             String hash,
+            Sender sender,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -119,6 +123,7 @@ mixin _$Operation {
             String timestamp,
             String block,
             String hash,
+            Sender sender,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -142,6 +147,7 @@ mixin _$Operation {
             String timestamp,
             String block,
             String hash,
+            Sender sender,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -190,6 +196,7 @@ abstract class $OperationCopyWith<$Res> {
       String timestamp,
       String block,
       String hash,
+      Sender sender,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -202,6 +209,8 @@ abstract class $OperationCopyWith<$Res> {
       String? status,
       bool? hasInternals,
       String? parameters});
+
+  $SenderCopyWith<$Res> get sender;
 }
 
 /// @nodoc
@@ -219,6 +228,7 @@ class _$OperationCopyWithImpl<$Res> implements $OperationCopyWith<$Res> {
     Object? timestamp = freezed,
     Object? block = freezed,
     Object? hash = freezed,
+    Object? sender = freezed,
     Object? counter = freezed,
     Object? gasLimit = freezed,
     Object? gasUsed = freezed,
@@ -253,6 +263,10 @@ class _$OperationCopyWithImpl<$Res> implements $OperationCopyWith<$Res> {
           ? _value.hash
           : hash // ignore: cast_nullable_to_non_nullable
               as String,
+      sender: sender == freezed
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as Sender,
       counter: counter == freezed
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
@@ -303,6 +317,13 @@ class _$OperationCopyWithImpl<$Res> implements $OperationCopyWith<$Res> {
               as String?,
     ));
   }
+
+  @override
+  $SenderCopyWith<$Res> get sender {
+    return $SenderCopyWith<$Res>(_value.sender, (value) {
+      return _then(_value.copyWith(sender: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -318,6 +339,7 @@ abstract class _$TransactionOperationCopyWith<$Res>
       String timestamp,
       String block,
       String hash,
+      Sender sender,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -330,6 +352,9 @@ abstract class _$TransactionOperationCopyWith<$Res>
       String? status,
       bool? hasInternals,
       String? parameters});
+
+  @override
+  $SenderCopyWith<$Res> get sender;
 }
 
 /// @nodoc
@@ -350,6 +375,7 @@ class __$TransactionOperationCopyWithImpl<$Res>
     Object? timestamp = freezed,
     Object? block = freezed,
     Object? hash = freezed,
+    Object? sender = freezed,
     Object? counter = freezed,
     Object? gasLimit = freezed,
     Object? gasUsed = freezed,
@@ -384,6 +410,10 @@ class __$TransactionOperationCopyWithImpl<$Res>
           ? _value.hash
           : hash // ignore: cast_nullable_to_non_nullable
               as String,
+      sender: sender == freezed
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as Sender,
       counter: counter == freezed
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
@@ -445,6 +475,7 @@ class _$_TransactionOperation implements _TransactionOperation {
       required this.timestamp,
       required this.block,
       required this.hash,
+      required this.sender,
       this.counter,
       this.gasLimit,
       this.gasUsed,
@@ -472,6 +503,8 @@ class _$_TransactionOperation implements _TransactionOperation {
   @override
   final String hash;
   @override
+  final Sender sender;
+  @override
   final int? counter;
   @override
   final int? gasLimit;
@@ -498,7 +531,7 @@ class _$_TransactionOperation implements _TransactionOperation {
 
   @override
   String toString() {
-    return 'Operation.transaction(id: $id, level: $level, timestamp: $timestamp, block: $block, hash: $hash, counter: $counter, gasLimit: $gasLimit, gasUsed: $gasUsed, storageLimit: $storageLimit, storageUsed: $storageUsed, bakerFee: $bakerFee, storageFee: $storageFee, allocationFee: $allocationFee, amount: $amount, status: $status, hasInternals: $hasInternals, parameters: $parameters)';
+    return 'Operation.transaction(id: $id, level: $level, timestamp: $timestamp, block: $block, hash: $hash, sender: $sender, counter: $counter, gasLimit: $gasLimit, gasUsed: $gasUsed, storageLimit: $storageLimit, storageUsed: $storageUsed, bakerFee: $bakerFee, storageFee: $storageFee, allocationFee: $allocationFee, amount: $amount, status: $status, hasInternals: $hasInternals, parameters: $parameters)';
   }
 
   @override
@@ -516,6 +549,8 @@ class _$_TransactionOperation implements _TransactionOperation {
                 const DeepCollectionEquality().equals(other.block, block)) &&
             (identical(other.hash, hash) ||
                 const DeepCollectionEquality().equals(other.hash, hash)) &&
+            (identical(other.sender, sender) ||
+                const DeepCollectionEquality().equals(other.sender, sender)) &&
             (identical(other.counter, counter) ||
                 const DeepCollectionEquality()
                     .equals(other.counter, counter)) &&
@@ -560,6 +595,7 @@ class _$_TransactionOperation implements _TransactionOperation {
       const DeepCollectionEquality().hash(timestamp) ^
       const DeepCollectionEquality().hash(block) ^
       const DeepCollectionEquality().hash(hash) ^
+      const DeepCollectionEquality().hash(sender) ^
       const DeepCollectionEquality().hash(counter) ^
       const DeepCollectionEquality().hash(gasLimit) ^
       const DeepCollectionEquality().hash(gasUsed) ^
@@ -588,6 +624,7 @@ class _$_TransactionOperation implements _TransactionOperation {
             String timestamp,
             String block,
             String hash,
+            Sender sender,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -608,6 +645,7 @@ class _$_TransactionOperation implements _TransactionOperation {
         timestamp,
         block,
         hash,
+        sender,
         counter,
         gasLimit,
         gasUsed,
@@ -631,6 +669,7 @@ class _$_TransactionOperation implements _TransactionOperation {
             String timestamp,
             String block,
             String hash,
+            Sender sender,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -651,6 +690,7 @@ class _$_TransactionOperation implements _TransactionOperation {
         timestamp,
         block,
         hash,
+        sender,
         counter,
         gasLimit,
         gasUsed,
@@ -674,6 +714,7 @@ class _$_TransactionOperation implements _TransactionOperation {
             String timestamp,
             String block,
             String hash,
+            Sender sender,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -696,6 +737,7 @@ class _$_TransactionOperation implements _TransactionOperation {
           timestamp,
           block,
           hash,
+          sender,
           counter,
           gasLimit,
           gasUsed,
@@ -753,6 +795,7 @@ abstract class _TransactionOperation implements Operation {
       required String timestamp,
       required String block,
       required String hash,
+      required Sender sender,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -779,6 +822,8 @@ abstract class _TransactionOperation implements Operation {
   String get block => throw _privateConstructorUsedError;
   @override
   String get hash => throw _privateConstructorUsedError;
+  @override
+  Sender get sender => throw _privateConstructorUsedError;
   @override
   int? get counter => throw _privateConstructorUsedError;
   @override

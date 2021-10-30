@@ -1,37 +1,106 @@
+import 'dart:convert';
+
+import 'package:anthos/models/operation/operation.dart';
+import 'package:anthos/models/tezos/tezos.dart';
+
+import '../models/account/account.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-enum Keys {
-  accountAddress,
-  accountPrivateKey,
-  accountSeedPhrase,
-  userAccount,
-}
-
-Map<String, String> networks = {
-  'Mainnet': 'api.tzkt.io',
-  'Granada': 'api.granada.tzkt.io',
-  'Hangzohounet': 'api.hangzhou.tzkt.io',
-};
+import 'package:path_provider/path_provider.dart';
+import 'package:sembast/sembast.dart' as sembast;
+import 'package:http/http.dart' as http;
+import 'package:sembast/sembast_io.dart';
 
 class Repository {
+  final Map<String, String> networks = {
+    'Mainnet': 'api.tzkt.io',
+    'Granada': 'api.granadanet.tzkt.io',
+  };
+
   final storage = const FlutterSecureStorage();
 
-  Future<String?> getAccountAddress() async {
-    return await storage.read(key: Keys.accountAddress.toString());
+  sembast.Database? _db;
+
+  /// File path to a file in the current directory
+  String dbName = 'foodmagic.db';
+
+  /// dbFactory instance
+  sembast.DatabaseFactory dbFactory = databaseFactoryIo;
+
+  // Store
+  final _store = sembast.stringMapStoreFactory.store('common_store');
+
+  static const userAccount = 'USER_ACCOUNT';
+
+  Future<sembast.Database> getDb() async {
+    if (_db == null) {
+      var path = (await getApplicationSupportDirectory()).path + "/" + dbName;
+      _db = await dbFactory.openDatabase(path);
+    }
+    return _db!;
   }
 
-  Future<void> setAccountCredentails(
-      {required String address, required String privateKey}) async {
-    await storage.write(key: Keys.accountAddress.toString(), value: address);
-    await storage.write(
-        key: Keys.accountPrivateKey.toString(), value: privateKey);
+  Future<Account?> getUserAccountLocal() async {
+    final res = await _store.record(userAccount).get(await getDb());
+    if (res != null) {
+      return UserAccountLocal.fromJson(res);
+    }
+    return null;
   }
 
-  Future<String?> getAccountPrivateKey() async {
-    return await storage.read(key: Keys.accountPrivateKey.toString());
+  Future<void> setUserAccountLocal(UserAccountLocal userAccountLocal) async {
+    await _store
+        .record(userAccount)
+        .put(await getDb(), userAccountLocal.toJson());
   }
 
-  Future<String?> getAccountSeedPhrase() async {
-    return await storage.read(key: Keys.accountSeedPhrase.toString());
+  Future<Account> getAccount({
+    required String network,
+    required String address,
+  }) async {
+    try {
+      var url = Uri.https(
+          networks[network]!,
+          // 'api.granadanet.tzkt.io',
+          '/v1/accounts/$address',
+          {'metadata': 'true'});
+      final res = await http.get(url);
+
+      return Account.fromJson(jsonDecode(res.body));
+    } catch (e) {
+      return Account.fromJson({});
+    }
+  }
+
+  Future<List<Operation>> getOperations(
+      {required String network, required String address}) async {
+    try {
+      var url =
+          Uri.https(networks[network]!, '/v1/accounts/$address/operations');
+      final res = await http.get(url);
+      List<Operation> operations = [];
+      var json = jsonDecode(res.body);
+      for (var i = 0; i < json.length; i++) {
+        operations.add(Operation.fromJson(json[i]));
+      }
+      return operations;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<Tezos?> getTezosMarketPrice() async {
+    try {
+      final url = Uri.https('api.coingecko.com', '/api/v3/coins/markets', {
+        'vs_currency': 'usd',
+        'ids': 'tezos',
+      });
+      final res = await http.get(url);
+      var jsonDecoded = jsonDecode(res.body)[0];
+      print('${jsonDecoded}');
+      return Tezos.fromJson(jsonDecoded);
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 }

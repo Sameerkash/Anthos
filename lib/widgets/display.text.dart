@@ -8,6 +8,7 @@ class DisplayText extends StatelessWidget {
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
   final TextOverflow? textOverflow;
+  final FontStyle? fontStyle;
 
   const DisplayText({
     Key? key,
@@ -18,6 +19,7 @@ class DisplayText extends StatelessWidget {
     this.fontWeight,
     this.textAlign,
     this.textOverflow,
+    this.fontStyle,
   }) : super(key: key);
 
   @override
@@ -29,8 +31,10 @@ class DisplayText extends StatelessWidget {
         color: color,
         fontWeight: fontWeight,
         backgroundColor: backgroundColor,
+        fontStyle: fontStyle,
       ),
       textAlign: textAlign,
+      overflow: textOverflow,
     );
   }
 }

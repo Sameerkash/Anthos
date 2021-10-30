@@ -1,14 +1,20 @@
-import 'package:animations/animations.dart';
-import 'widgets/transaction_info.dart';
-import 'widgets/wallet_info.dart';
-import '../settings/settings.dart';
+import 'package:anthos/provider/provider.dart';
+import 'package:anthos/services/repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:animations/animations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'widgets/wallet_info.dart';
+import 'widgets/transaction_info.dart';
+import '../settings/settings.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends HookWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final home = useProvider(homeProvider);
+
     return SafeArea(
       child: Stack(
         children: <Widget>[
@@ -58,12 +64,30 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             top: 60,
             right: 130,
-            child: WalletInfo(),
+            child: home.maybeWhen(
+              data: (_, account, tezos, ___) => WalletInfo(
+                account: account!,
+                tezos: tezos,
+              ),
+              loading: () => const SizedBox(
+                  height: 5,
+                  width: 500,
+                  child: LinearProgressIndicator(
+                    color: Colors.indigo,
+                  )),
+              orElse: () => Container(),
+            ),
           ),
-          const TransactionInfo()
+          home.maybeWhen(
+            data: (_, __, ___, operations) =>
+                TransactionInfo(operatoins: operations),
+            loading: () =>
+                const TransactionInfo(operatoins: [], isLoading: true),
+            orElse: () => Container(),
+          ),
         ],
       ),
     );

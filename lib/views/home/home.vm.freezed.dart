@@ -21,12 +21,23 @@ class _$HomeStateTearOff {
     return const _Loading();
   }
 
-  _Data data() {
-    return const _Data();
+  _Data data(
+      {UserAccountLocal? userAccountLocal,
+      Account? userAccount,
+      Tezos? tezos,
+      List<Operation> operations = const []}) {
+    return _Data(
+      userAccountLocal: userAccountLocal,
+      userAccount: userAccount,
+      tezos: tezos,
+      operations: operations,
+    );
   }
 
-  _Error error() {
-    return const _Error();
+  _Error error(String? error) {
+    return _Error(
+      error,
+    );
   }
 }
 
@@ -38,22 +49,28 @@ mixin _$HomeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() data,
-    required TResult Function() error,
+    required TResult Function(UserAccountLocal? userAccountLocal,
+            Account? userAccount, Tezos? tezos, List<Operation> operations)
+        data,
+    required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -134,8 +151,10 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() data,
-    required TResult Function() error,
+    required TResult Function(UserAccountLocal? userAccountLocal,
+            Account? userAccount, Tezos? tezos, List<Operation> operations)
+        data,
+    required TResult Function(String? error) error,
   }) {
     return loading();
   }
@@ -144,8 +163,10 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
   }) {
     return loading?.call();
   }
@@ -154,8 +175,10 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -207,6 +230,14 @@ abstract class _Loading implements HomeState {
 abstract class _$DataCopyWith<$Res> {
   factory _$DataCopyWith(_Data value, $Res Function(_Data) then) =
       __$DataCopyWithImpl<$Res>;
+  $Res call(
+      {UserAccountLocal? userAccountLocal,
+      Account? userAccount,
+      Tezos? tezos,
+      List<Operation> operations});
+
+  $AccountCopyWith<$Res>? get userAccount;
+  $TezosCopyWith<$Res>? get tezos;
 }
 
 /// @nodoc
@@ -217,56 +248,147 @@ class __$DataCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 
   @override
   _Data get _value => super._value as _Data;
+
+  @override
+  $Res call({
+    Object? userAccountLocal = freezed,
+    Object? userAccount = freezed,
+    Object? tezos = freezed,
+    Object? operations = freezed,
+  }) {
+    return _then(_Data(
+      userAccountLocal: userAccountLocal == freezed
+          ? _value.userAccountLocal
+          : userAccountLocal // ignore: cast_nullable_to_non_nullable
+              as UserAccountLocal?,
+      userAccount: userAccount == freezed
+          ? _value.userAccount
+          : userAccount // ignore: cast_nullable_to_non_nullable
+              as Account?,
+      tezos: tezos == freezed
+          ? _value.tezos
+          : tezos // ignore: cast_nullable_to_non_nullable
+              as Tezos?,
+      operations: operations == freezed
+          ? _value.operations
+          : operations // ignore: cast_nullable_to_non_nullable
+              as List<Operation>,
+    ));
+  }
+
+  @override
+  $AccountCopyWith<$Res>? get userAccount {
+    if (_value.userAccount == null) {
+      return null;
+    }
+
+    return $AccountCopyWith<$Res>(_value.userAccount!, (value) {
+      return _then(_value.copyWith(userAccount: value));
+    });
+  }
+
+  @override
+  $TezosCopyWith<$Res>? get tezos {
+    if (_value.tezos == null) {
+      return null;
+    }
+
+    return $TezosCopyWith<$Res>(_value.tezos!, (value) {
+      return _then(_value.copyWith(tezos: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_Data implements _Data {
-  const _$_Data();
+  const _$_Data(
+      {this.userAccountLocal,
+      this.userAccount,
+      this.tezos,
+      this.operations = const []});
+
+  @override // required
+  final UserAccountLocal? userAccountLocal;
+  @override
+  final Account? userAccount;
+  @override
+  final Tezos? tezos;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<Operation> operations;
 
   @override
   String toString() {
-    return 'HomeState.data()';
+    return 'HomeState.data(userAccountLocal: $userAccountLocal, userAccount: $userAccount, tezos: $tezos, operations: $operations)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Data);
+    return identical(this, other) ||
+        (other is _Data &&
+            (identical(other.userAccountLocal, userAccountLocal) ||
+                const DeepCollectionEquality()
+                    .equals(other.userAccountLocal, userAccountLocal)) &&
+            (identical(other.userAccount, userAccount) ||
+                const DeepCollectionEquality()
+                    .equals(other.userAccount, userAccount)) &&
+            (identical(other.tezos, tezos) ||
+                const DeepCollectionEquality().equals(other.tezos, tezos)) &&
+            (identical(other.operations, operations) ||
+                const DeepCollectionEquality()
+                    .equals(other.operations, operations)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(userAccountLocal) ^
+      const DeepCollectionEquality().hash(userAccount) ^
+      const DeepCollectionEquality().hash(tezos) ^
+      const DeepCollectionEquality().hash(operations);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DataCopyWith<_Data> get copyWith =>
+      __$DataCopyWithImpl<_Data>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() data,
-    required TResult Function() error,
+    required TResult Function(UserAccountLocal? userAccountLocal,
+            Account? userAccount, Tezos? tezos, List<Operation> operations)
+        data,
+    required TResult Function(String? error) error,
   }) {
-    return data();
+    return data(userAccountLocal, userAccount, tezos, operations);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
   }) {
-    return data?.call();
+    return data?.call(userAccountLocal, userAccount, tezos, operations);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data();
+      return data(userAccountLocal, userAccount, tezos, operations);
     }
     return orElse();
   }
@@ -307,13 +429,26 @@ class _$_Data implements _Data {
 }
 
 abstract class _Data implements HomeState {
-  const factory _Data() = _$_Data;
+  const factory _Data(
+      {UserAccountLocal? userAccountLocal,
+      Account? userAccount,
+      Tezos? tezos,
+      List<Operation> operations}) = _$_Data;
+
+// required
+  UserAccountLocal? get userAccountLocal => throw _privateConstructorUsedError;
+  Account? get userAccount => throw _privateConstructorUsedError;
+  Tezos? get tezos => throw _privateConstructorUsedError;
+  List<Operation> get operations => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$DataCopyWith<_Data> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$ErrorCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) then) =
       __$ErrorCopyWithImpl<$Res>;
+  $Res call({String? error});
 }
 
 /// @nodoc
@@ -324,56 +459,86 @@ class __$ErrorCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 
   @override
   _Error get _value => super._value as _Error;
+
+  @override
+  $Res call({
+    Object? error = freezed,
+  }) {
+    return _then(_Error(
+      error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Error implements _Error {
-  const _$_Error();
+  const _$_Error(this.error);
+
+  @override
+  final String? error;
 
   @override
   String toString() {
-    return 'HomeState.error()';
+    return 'HomeState.error(error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Error);
+    return identical(this, other) ||
+        (other is _Error &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ErrorCopyWith<_Error> get copyWith =>
+      __$ErrorCopyWithImpl<_Error>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() data,
-    required TResult Function() error,
+    required TResult Function(UserAccountLocal? userAccountLocal,
+            Account? userAccount, Tezos? tezos, List<Operation> operations)
+        data,
+    required TResult Function(String? error) error,
   }) {
-    return error();
+    return error(this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
   }) {
-    return error?.call();
+    return error?.call(this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? data,
-    TResult Function()? error,
+    TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
+            Tezos? tezos, List<Operation> operations)?
+        data,
+    TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(this.error);
     }
     return orElse();
   }
@@ -414,5 +579,9 @@ class _$_Error implements _Error {
 }
 
 abstract class _Error implements HomeState {
-  const factory _Error() = _$_Error;
+  const factory _Error(String? error) = _$_Error;
+
+  String? get error => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$ErrorCopyWith<_Error> get copyWith => throw _privateConstructorUsedError;
 }
