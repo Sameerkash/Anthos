@@ -8,20 +8,24 @@ part of 'account.dart';
 
 _$UserAccountLocal _$$UserAccountLocalFromJson(Map<String, dynamic> json) =>
     _$UserAccountLocal(
+      type: json['type'] as String? ?? 'userLocal',
       address: json['address'] as String,
-      publicKey: json['publicKey'] as String,
+      secretKey: json['secretKey'] as String,
       privateKey: json['privateKey'] as String,
       mnemonic: json['mnemonic'] as String,
+      balance: json['balance'] as num? ?? 0,
       prefferedNetwork: json['prefferedNetwork'] as String? ?? 'Mainnet',
       seedPhrase: json['seedPhrase'] as String?,
     );
 
 Map<String, dynamic> _$$UserAccountLocalToJson(_$UserAccountLocal instance) =>
     <String, dynamic>{
+      'type': instance.type,
       'address': instance.address,
-      'publicKey': instance.publicKey,
+      'secretKey': instance.secretKey,
       'privateKey': instance.privateKey,
       'mnemonic': instance.mnemonic,
+      'balance': instance.balance,
       'prefferedNetwork': instance.prefferedNetwork,
       'seedPhrase': instance.seedPhrase,
     };
@@ -29,8 +33,7 @@ Map<String, dynamic> _$$UserAccountLocalToJson(_$UserAccountLocal instance) =>
 _$UserAccount _$$UserAccountFromJson(Map<String, dynamic> json) =>
     _$UserAccount(
       address: json['address'] as String,
-      balance: json['balance'] as int,
-      secret: json['secret'] as String?,
+      balance: json['balance'] as num,
       publicKey: json['publicKey'] as String?,
       alias: json['alias'] as String?,
       revealed: json['revealed'] as bool?,
@@ -55,7 +58,6 @@ Map<String, dynamic> _$$UserAccountToJson(_$UserAccount instance) =>
     <String, dynamic>{
       'address': instance.address,
       'balance': instance.balance,
-      'secret': instance.secret,
       'publicKey': instance.publicKey,
       'alias': instance.alias,
       'revealed': instance.revealed,
@@ -79,13 +81,11 @@ Map<String, dynamic> _$$UserAccountToJson(_$UserAccount instance) =>
 _$ContractAccount _$$ContractAccountFromJson(Map<String, dynamic> json) =>
     _$ContractAccount(
       kind: json['kind'] as String,
-      privateKey: json['privateKey'] as String,
-      secret: json['secret'] as String?,
       address: json['address'] as String,
       tzips:
           (json['tzips'] as List<dynamic>?)?.map((e) => e as String).toList(),
       alias: json['alias'] as String?,
-      balance: json['balance'] as int?,
+      balance: json['balance'] as num?,
       delegationLevel: json['delegationLevel'] as int?,
       delegationTime: json['delegationTime'] as String?,
       numContracts: json['numContracts'] as int?,
@@ -105,8 +105,6 @@ _$ContractAccount _$$ContractAccountFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ContractAccountToJson(_$ContractAccount instance) =>
     <String, dynamic>{
       'kind': instance.kind,
-      'privateKey': instance.privateKey,
-      'secret': instance.secret,
       'address': instance.address,
       'tzips': instance.tzips,
       'alias': instance.alias,
@@ -130,9 +128,7 @@ Map<String, dynamic> _$$ContractAccountToJson(_$ContractAccount instance) =>
 _$EmptyAccount _$$EmptyAccountFromJson(Map<String, dynamic> json) =>
     _$EmptyAccount(
       address: json['address'] as String,
-      balance: json['balance'] as int? ?? 0,
-      secret: json['secret'] as String?,
-      privateKey: json['privateKey'] as String,
+      balance: json['balance'] as num? ?? 0,
       counter: json['counter'] as int?,
     );
 
@@ -140,7 +136,5 @@ Map<String, dynamic> _$$EmptyAccountToJson(_$EmptyAccount instance) =>
     <String, dynamic>{
       'address': instance.address,
       'balance': instance.balance,
-      'secret': instance.secret,
-      'privateKey': instance.privateKey,
       'counter': instance.counter,
     };

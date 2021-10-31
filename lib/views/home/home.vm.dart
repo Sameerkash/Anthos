@@ -34,10 +34,14 @@ class HomeVM extends StateNotifier<HomeState> {
     getAccount();
   }
 
-  void getAccount() async {
+  Future<void> getAccount() async {
     const network = 'Granada';
-    const address = 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
 
+    final userAccounLocal = await repo.getUserAccountLocal();
+    final address = userAccounLocal!.address;
+    // 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
+
+    /// API Calls
     final account = await repo.getAccount(network: network, address: address);
     final operations =
         await repo.getOperations(network: network, address: address);
@@ -46,7 +50,7 @@ class HomeVM extends StateNotifier<HomeState> {
     final currentState = state;
     if (currentState is _Data || currentState is _Loading) {
       state = HomeState.data(
-        userAccountLocal: null,
+        userAccountLocal: userAccounLocal,
         userAccount: account,
         operations: operations,
         tezos: tezosPrice,
@@ -56,13 +60,15 @@ class HomeVM extends StateNotifier<HomeState> {
 
   void getOperations() async {
     const network = 'Granada';
-    const address = 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
-
-    final operations =
-        await repo.getOperations(network: network, address: address);
+    // const address = 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
 
     final currentState = state;
     if (currentState is _Data) {
+      final operations = await repo.getOperations(
+        network: network,
+        address: currentState.userAccountLocal!.address,
+      );
+
       state = HomeState.data(
         userAccountLocal: currentState.userAccountLocal,
         userAccount: currentState.userAccount,

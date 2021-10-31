@@ -43,11 +43,12 @@ class Repository {
     return _db!;
   }
 
-  Future<Account?> getUserAccountLocal() async {
+  Future<UserAccountLocal?> getUserAccountLocal() async {
     final res = await _store.record(userAccount).get(await getDb());
     if (res != null) {
       return UserAccountLocal.fromJson(res);
     }
+
     return null;
   }
 
@@ -57,7 +58,11 @@ class Repository {
         .put(await getDb(), userAccountLocal.toJson());
   }
 
-  Future<Account> getAccount({
+  Future<void> deleteAccount() async {
+    await _store.record(userAccount).delete(await getDb());
+  }
+
+  Future<Account?> getAccount({
     required String network,
     required String address,
   }) async {
@@ -65,10 +70,9 @@ class Repository {
       var url = Uri.https(
           networks[network]!, '/v1/accounts/$address', {'metadata': 'true'});
       final res = await http.get(url);
-
       return Account.fromJson(jsonDecode(res.body));
     } catch (e) {
-      return Account.fromJson({});
+      return null;
     }
   }
 
@@ -97,10 +101,8 @@ class Repository {
       });
       final res = await http.get(url);
       var jsonDecoded = jsonDecode(res.body)[0];
-      print('${jsonDecoded}');
       return Tezos.fromJson(jsonDecoded);
     } catch (e) {
-      print(e);
       return null;
     }
   }

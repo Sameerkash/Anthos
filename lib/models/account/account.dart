@@ -1,4 +1,3 @@
-import '../common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'account.g.dart';
@@ -7,18 +6,19 @@ part 'account.freezed.dart';
 @Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.none)
 class Account with _$Account {
   const factory Account.userLocal({
+    @Default('userLocal') final String type,
     required final String address,
-    required final String publicKey,
+    required final String secretKey,
     required final String privateKey,
     required final String mnemonic,
+     @Default(0)  final num? balance,
     @Default('Mainnet') final String prefferedNetwork,
     final String? seedPhrase,
   }) = UserAccountLocal;
 
   const factory Account.user({
     required final String address,
-    required final int balance,
-    final String? secret,
+    required num balance,
     final String? publicKey,
     final String? alias,
     final bool? revealed,
@@ -41,12 +41,10 @@ class Account with _$Account {
 
   const factory Account.contract({
     required final String kind,
-    required final String privateKey,
-     final String? secret,
     required final String address,
     final List<String>? tzips,
     final String? alias,
-    final int? balance,
+    final num? balance,
     final int? delegationLevel,
     final String? delegationTime,
     final int? numContracts,
@@ -65,9 +63,7 @@ class Account with _$Account {
 
   const factory Account.empty({
     required final String address,
-    @Default(0) final int? balance,
-    final String? secret,
-    required final String privateKey,
+    @Default(0)  final num? balance,
     final int? counter,
   }) = EmptyAccount;
 

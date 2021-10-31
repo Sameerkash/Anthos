@@ -16,7 +16,7 @@ class OperationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
       child: OpenContainer<bool>(
         openElevation: 0,
         closedElevation: 0,

@@ -1,6 +1,5 @@
-import 'package:animations/animations.dart';
 import 'package:anthos/views/operation/recieve_operation.dart';
-import 'package:anthos/views/operation/scan_qr_code.dart';
+
 import 'package:anthos/views/operation/send_operation.dart';
 import 'package:flutter/cupertino.dart';
 

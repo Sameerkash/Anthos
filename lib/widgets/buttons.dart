@@ -80,14 +80,19 @@ class ElevatedDisplayTextButton extends StatelessWidget {
   final Color? color;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final Color? textColor;
+  final bool? isLoading;
+
   const ElevatedDisplayTextButton({
     Key? key,
     required this.text,
     required this.onPressed,
-    this.fontSize,
     this.enabled = true,
     this.color = Colors.indigo,
+    this.fontSize,
     this.fontWeight,
+    this.textColor = Colors.white,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -109,12 +114,15 @@ class ElevatedDisplayTextButton extends StatelessWidget {
           ),
           height: 40,
           alignment: Alignment.center,
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 18,
-            ),
-          ),
+          child: isLoading!
+              ? const CircularProgressIndicator()
+              : Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: textColor,
+                  ),
+                ),
         ),
       ),
     );

@@ -13,6 +13,7 @@ class HomeView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final home = useProvider(homeProvider);
+    final homeNotifier = useProvider(homeProvider.notifier);
 
     return SafeArea(
       child: Stack(
@@ -81,10 +82,19 @@ class HomeView extends HookWidget {
             ),
           ),
           home.maybeWhen(
-            data: (_, __, ___, operations) =>
-                TransactionInfo(operatoins: operations),
-            loading: () =>
-                const TransactionInfo(operatoins: [], isLoading: true),
+            data: (_, __, ___, operations) => TransactionInfo(
+              operatoins: operations,
+              onRefresh: () async {
+                return homeNotifier.getAccount();
+              },
+            ),
+            loading: () => TransactionInfo(
+              operatoins: const [],
+              isLoading: true,
+              onRefresh: () async {
+                homeNotifier.getAccount();
+              },
+            ),
             orElse: () => Container(),
           ),
         ],
