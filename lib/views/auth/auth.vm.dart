@@ -1,6 +1,6 @@
-import 'package:anthos/models/account/account.dart';
-import 'package:anthos/provider/provider.dart';
-import 'package:anthos/services/repository.dart';
+import '../../models/account/account.dart';
+import '../../provider/provider.dart';
+import '../../services/repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tezster_dart/tezster_dart.dart';
@@ -63,7 +63,9 @@ class AuthVM extends StateNotifier<AuthState> {
     state = AuthState.data(mnemonic: mnemonic);
   }
 
-  void importAccount({required String mnemonic}) async {
+  Future<void> importAccount({required String mnemonic}) async {
+    state = const AuthState.noData(isLoading: true);
+
     List<String> keys = await TezsterDart.getKeysFromMnemonicAndPassphrase(
       mnemonic: mnemonic,
       passphrase: '',
@@ -74,7 +76,6 @@ class AuthVM extends StateNotifier<AuthState> {
       privateKey: keys[1],
       address: keys[2],
       mnemonic: mnemonic,
-      balance: 0,
     );
 
     await repo.setUserAccountLocal(userLocal);

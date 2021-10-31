@@ -58,13 +58,13 @@ Map<String, dynamic> _$$_SenderToJson(_$_Sender instance) => <String, dynamic>{
     };
 
 _$_Target _$$_TargetFromJson(Map<String, dynamic> json) => _$_Target(
-      alias: json['alias'] as String,
       address: json['address'] as String,
+      alias: json['alias'] as String?,
     );
 
 Map<String, dynamic> _$$_TargetToJson(_$_Target instance) => <String, dynamic>{
-      'alias': instance.alias,
       'address': instance.address,
+      'alias': instance.alias,
     };
 
 _$_Parameter _$$_ParameterFromJson(Map<String, dynamic> json) => _$_Parameter(

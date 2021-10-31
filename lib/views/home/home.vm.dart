@@ -19,6 +19,7 @@ class HomeState with _$HomeState {
     Account? userAccount,
     Tezos? tezos,
     @Default([]) List<Operation> operations,
+    @Default(false) bool isSending,
   }) = _Data;
   const factory HomeState.error(
     String? error,
@@ -39,6 +40,7 @@ class HomeVM extends StateNotifier<HomeState> {
 
     final userAccounLocal = await repo.getUserAccountLocal();
     final address = userAccounLocal!.address;
+
     // 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
 
     /// API Calls
@@ -77,39 +79,36 @@ class HomeVM extends StateNotifier<HomeState> {
     }
   }
 
-  void sendTransaction(
+  Future<void> sendTransaction(
       {required double ammount, required String account}) async {
-    List<String> keys = await TezsterDart.getKeysFromMnemonicAndPassphrase(
-        mnemonic:
-            'uphold mushroom virus inherit dish private cactus parent force frog ethics word',
-        passphrase: '');
     final currentState = state;
-    final secret = keys[0];
-    final publickeyHash = keys[1];
-
-    print('$keys');
 
     if (currentState is _Data) {
+      final userAccount = currentState.userAccountLocal;
+
+      state = currentState.copyWith(isSending: true);
+
       final keyStore = KeyStoreModel(
-        publicKey: currentState.userAccount!.address,
-        secretKey: secret,
-        publicKeyHash: publickeyHash,
+        publicKey: userAccount!.privateKey,
+        secretKey: userAccount.secretKey,
+        publicKeyHash: userAccount.address,
       );
 
       var signer = await TezsterDart.createSigner(
           TezsterDart.writeKeyWithHint(keyStore.secretKey, 'edsk'));
       const network = 'Granada';
 
-      final result = await TezsterDart.sendTransactionOperation(
+      await TezsterDart.sendTransactionOperation(
         repo.networksChains[network]!,
         signer,
         keyStore,
         account,
-        ammount.toInt(),
+        (ammount * 1000000).toInt(),
         10000,
       );
 
-      print(result);
+      state = currentState.copyWith(isSending: false);
+      getAccount();
     }
   }
 }

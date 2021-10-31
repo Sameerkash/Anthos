@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'account.g.dart';
+
 part 'account.freezed.dart';
+part 'account.g.dart';
 
 @Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.none)
 class Account with _$Account {

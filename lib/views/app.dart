@@ -1,5 +1,5 @@
-import 'package:anthos/provider/provider.dart';
-import 'package:anthos/views/auth/auth.dart';
+import '../provider/provider.dart';
+import 'auth/auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -53,33 +53,37 @@ class WalletInfo extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 DisplayText(
-                  text: ' ${u.balance} x 10\u{2076} mutez',
+                  text: u.balance < 1
+                      ? ' ${u.balance * 1000000} mutez'
+                      : ' ${u.balance} x 10\u{2076} mutez',
                   fontSize: 16,
                   color: Colors.white,
                 ),
                 const SizedBox(height: 5),
                 if (tezos != null)
                   DisplayText(
-                    text: '\$ ${tezos!.currentPrice * u.balance}',
+                    text:
+                        '\$ ${(tezos!.currentPrice * u.balance).toStringAsFixed(5)}',
                     fontSize: 20,
                     color: Colors.white,
                   ),
                 const SizedBox(height: 20),
-                InkWell(
-                  onTap: (){
-
-                  },
-                  child: Row(
-                    children: const [
-                      DisplayText(
-                        text: 'See more',
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.arrow_forward_ios,
-                          color: Colors.white, size: 15),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 70),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Row(
+                      children: const [
+                        DisplayText(
+                          text: 'See more',
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 5),
+                        Icon(Icons.arrow_forward_ios,
+                            color: Colors.white, size: 15),
+                      ],
+                    ),
                   ),
                 ),
               ],

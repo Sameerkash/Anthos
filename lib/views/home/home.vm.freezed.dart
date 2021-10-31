@@ -25,12 +25,14 @@ class _$HomeStateTearOff {
       {UserAccountLocal? userAccountLocal,
       Account? userAccount,
       Tezos? tezos,
-      List<Operation> operations = const []}) {
+      List<Operation> operations = const [],
+      bool isSending = false}) {
     return _Data(
       userAccountLocal: userAccountLocal,
       userAccount: userAccount,
       tezos: tezos,
       operations: operations,
+      isSending: isSending,
     );
   }
 
@@ -49,8 +51,12 @@ mixin _$HomeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserAccountLocal? userAccountLocal,
-            Account? userAccount, Tezos? tezos, List<Operation> operations)
+    required TResult Function(
+            UserAccountLocal? userAccountLocal,
+            Account? userAccount,
+            Tezos? tezos,
+            List<Operation> operations,
+            bool isSending)
         data,
     required TResult Function(String? error) error,
   }) =>
@@ -59,7 +65,7 @@ mixin _$HomeState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
   }) =>
@@ -68,7 +74,7 @@ mixin _$HomeState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -151,8 +157,12 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserAccountLocal? userAccountLocal,
-            Account? userAccount, Tezos? tezos, List<Operation> operations)
+    required TResult Function(
+            UserAccountLocal? userAccountLocal,
+            Account? userAccount,
+            Tezos? tezos,
+            List<Operation> operations,
+            bool isSending)
         data,
     required TResult Function(String? error) error,
   }) {
@@ -164,7 +174,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
   }) {
@@ -176,7 +186,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -234,7 +244,8 @@ abstract class _$DataCopyWith<$Res> {
       {UserAccountLocal? userAccountLocal,
       Account? userAccount,
       Tezos? tezos,
-      List<Operation> operations});
+      List<Operation> operations,
+      bool isSending});
 
   $AccountCopyWith<$Res>? get userAccount;
   $TezosCopyWith<$Res>? get tezos;
@@ -255,6 +266,7 @@ class __$DataCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
     Object? userAccount = freezed,
     Object? tezos = freezed,
     Object? operations = freezed,
+    Object? isSending = freezed,
   }) {
     return _then(_Data(
       userAccountLocal: userAccountLocal == freezed
@@ -273,6 +285,10 @@ class __$DataCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value.operations
           : operations // ignore: cast_nullable_to_non_nullable
               as List<Operation>,
+      isSending: isSending == freezed
+          ? _value.isSending
+          : isSending // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -306,7 +322,8 @@ class _$_Data implements _Data {
       {this.userAccountLocal,
       this.userAccount,
       this.tezos,
-      this.operations = const []});
+      this.operations = const [],
+      this.isSending = false});
 
   @override // required
   final UserAccountLocal? userAccountLocal;
@@ -317,10 +334,13 @@ class _$_Data implements _Data {
   @JsonKey(defaultValue: const [])
   @override
   final List<Operation> operations;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isSending;
 
   @override
   String toString() {
-    return 'HomeState.data(userAccountLocal: $userAccountLocal, userAccount: $userAccount, tezos: $tezos, operations: $operations)';
+    return 'HomeState.data(userAccountLocal: $userAccountLocal, userAccount: $userAccount, tezos: $tezos, operations: $operations, isSending: $isSending)';
   }
 
   @override
@@ -337,7 +357,10 @@ class _$_Data implements _Data {
                 const DeepCollectionEquality().equals(other.tezos, tezos)) &&
             (identical(other.operations, operations) ||
                 const DeepCollectionEquality()
-                    .equals(other.operations, operations)));
+                    .equals(other.operations, operations)) &&
+            (identical(other.isSending, isSending) ||
+                const DeepCollectionEquality()
+                    .equals(other.isSending, isSending)));
   }
 
   @override
@@ -346,7 +369,8 @@ class _$_Data implements _Data {
       const DeepCollectionEquality().hash(userAccountLocal) ^
       const DeepCollectionEquality().hash(userAccount) ^
       const DeepCollectionEquality().hash(tezos) ^
-      const DeepCollectionEquality().hash(operations);
+      const DeepCollectionEquality().hash(operations) ^
+      const DeepCollectionEquality().hash(isSending);
 
   @JsonKey(ignore: true)
   @override
@@ -357,12 +381,16 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserAccountLocal? userAccountLocal,
-            Account? userAccount, Tezos? tezos, List<Operation> operations)
+    required TResult Function(
+            UserAccountLocal? userAccountLocal,
+            Account? userAccount,
+            Tezos? tezos,
+            List<Operation> operations,
+            bool isSending)
         data,
     required TResult Function(String? error) error,
   }) {
-    return data(userAccountLocal, userAccount, tezos, operations);
+    return data(userAccountLocal, userAccount, tezos, operations, isSending);
   }
 
   @override
@@ -370,11 +398,12 @@ class _$_Data implements _Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
   }) {
-    return data?.call(userAccountLocal, userAccount, tezos, operations);
+    return data?.call(
+        userAccountLocal, userAccount, tezos, operations, isSending);
   }
 
   @override
@@ -382,13 +411,13 @@ class _$_Data implements _Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(userAccountLocal, userAccount, tezos, operations);
+      return data(userAccountLocal, userAccount, tezos, operations, isSending);
     }
     return orElse();
   }
@@ -433,13 +462,15 @@ abstract class _Data implements HomeState {
       {UserAccountLocal? userAccountLocal,
       Account? userAccount,
       Tezos? tezos,
-      List<Operation> operations}) = _$_Data;
+      List<Operation> operations,
+      bool isSending}) = _$_Data;
 
 // required
   UserAccountLocal? get userAccountLocal => throw _privateConstructorUsedError;
   Account? get userAccount => throw _privateConstructorUsedError;
   Tezos? get tezos => throw _privateConstructorUsedError;
   List<Operation> get operations => throw _privateConstructorUsedError;
+  bool get isSending => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$DataCopyWith<_Data> get copyWith => throw _privateConstructorUsedError;
 }
@@ -507,8 +538,12 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserAccountLocal? userAccountLocal,
-            Account? userAccount, Tezos? tezos, List<Operation> operations)
+    required TResult Function(
+            UserAccountLocal? userAccountLocal,
+            Account? userAccount,
+            Tezos? tezos,
+            List<Operation> operations,
+            bool isSending)
         data,
     required TResult Function(String? error) error,
   }) {
@@ -520,7 +555,7 @@ class _$_Error implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
   }) {
@@ -532,7 +567,7 @@ class _$_Error implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(UserAccountLocal? userAccountLocal, Account? userAccount,
-            Tezos? tezos, List<Operation> operations)?
+            Tezos? tezos, List<Operation> operations, bool isSending)?
         data,
     TResult Function(String? error)? error,
     required TResult orElse(),

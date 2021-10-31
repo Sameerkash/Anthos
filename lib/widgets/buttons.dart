@@ -110,7 +110,7 @@ class ElevatedDisplayTextButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: color,
+            color: enabled! ? color : Colors.grey,
           ),
           height: 40,
           alignment: Alignment.center,

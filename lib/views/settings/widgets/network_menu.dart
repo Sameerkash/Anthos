@@ -25,31 +25,25 @@ class NetworkMenu extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: Colors.indigo,
           ),
+          width: MediaQuery.of(context).size.width * 0.8,
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: DropdownButton<String>(
-            value: 'Flutter',
+            value: 'Granada',
             style: const TextStyle(color: Colors.white),
-            items: <String>[
-              'Android',
-              'IOS',
-              'Flutter',
-              'Node',
-              'Java',
-              'Python',
-              'PHP',
-            ].map<DropdownMenuItem<String>>((String value) {
+            items: <String>['Granada', 'Mainnet']
+                .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: DisplayText(
                   text: value,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               );
             }).toList(),
             hint: const Text(
               "Network",
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),

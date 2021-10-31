@@ -41,12 +41,11 @@ class Sender with _$Sender {
 @freezed
 class Target with _$Target {
   const factory Target({
-    required final String alias,
     required final String address,
+    final String? alias,
   }) = _Target;
 
   factory Target.fromJson(Map<String, Object?> json) => _$TargetFromJson(json);
-
 }
 
 @freezed
@@ -56,16 +55,16 @@ class Parameter with _$Parameter {
     required final Value value,
   }) = _Parameter;
 
-    factory Parameter.fromJson(Map<String, Object?> json) => _$ParameterFromJson(json);
-
+  factory Parameter.fromJson(Map<String, Object?> json) =>
+      _$ParameterFromJson(json);
 }
 
 @freezed
 class Value with _$Value {
   const factory Value({
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'R') final String? r,
   }) = _Value;
 
   factory Value.fromJson(Map<String, Object?> json) => _$ValueFromJson(json);
-
 }

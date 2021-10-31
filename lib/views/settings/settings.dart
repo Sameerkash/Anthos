@@ -1,6 +1,6 @@
 import 'widgets/app_menu.dart';
 import 'widgets/device_menu.dart';
-import 'widgets/netowrk_menu.dart';
+import 'widgets/network_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/display.text.dart';

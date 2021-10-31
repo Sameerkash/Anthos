@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/account/account.dart';
+
 import '../../../models/operation/operation.dart';
 import '../../../widgets/display.text.dart';
 import 'operation_tile.dart';
@@ -9,16 +11,17 @@ class TransactionInfo extends StatelessWidget {
   final List<Operation> operatoins;
   final bool isLoading;
   final Future<void> Function() onRefresh;
+  final UserAccountLocal? user;
   const TransactionInfo({
     Key? key,
     required this.operatoins,
     this.isLoading = false,
     required this.onRefresh,
+    required this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: DraggableScrollableSheet(
@@ -45,16 +48,19 @@ class TransactionInfo extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (!isLoading)
+                if (!isLoading) ...[
+                  const SheetActions(),
                   const SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.all(14.0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 26.0, vertical: 16),
                       child: Text(
                         'Transactions',
                         style: TextStyle(fontSize: 22, color: Colors.indigo),
                       ),
                     ),
                   ),
+                ],
                 if (!isLoading && operatoins.isEmpty) ...[
                   const SliverToBoxAdapter(
                       child: Padding(
@@ -65,12 +71,12 @@ class TransactionInfo extends StatelessWidget {
                   )),
                 ],
                 if (!isLoading && operatoins.isNotEmpty) ...[
-                  const SheetActions(),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return OperationTile(
                           operation: operatoins[index],
+                          user: user,
                         );
                       },
                       childCount: operatoins.length,

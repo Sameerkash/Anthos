@@ -1,17 +1,24 @@
-import '../../provider/provider.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:animations/animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'widgets/wallet_info.dart';
-import 'widgets/transaction_info.dart';
+
+import '../../models/tezos/tezos.dart';
+import '../../widgets/display.text.dart';
+
+import '../../provider/provider.dart';
 import '../settings/settings.dart';
+import 'widgets/transaction_info.dart';
+import 'widgets/wallet_info.dart';
 
 class HomeView extends HookWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     final home = useProvider(homeProvider);
     final homeNotifier = useProvider(homeProvider.notifier);
 
@@ -66,13 +73,28 @@ class HomeView extends HookWidget {
           ),
           Positioned(
             top: 60,
-            right: 130,
-            child: home.maybeWhen(
-              data: (_, account, tezos, ___) => WalletInfo(
-                account: account!,
-                tezos: tezos,
+            right: width / 3.5,
+            child: home.maybeMap(
+              data: (data) => Container(
+                alignment: Alignment.center,
+                height: height / 4,
+                width: width * 0.5,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: PageView(
+                    children: [
+                      WalletInfo(
+                        account: data.userAccount!,
+                        tezos: data.tezos,
+                      ),
+                      TezosInfo(
+                        tezos: data.tezos!,
+                      )
+                    ],
+                  ),
+                ),
               ),
-              loading: () => const SizedBox(
+              loading: (_) => const SizedBox(
                   height: 5,
                   width: 500,
                   child: LinearProgressIndicator(
@@ -82,13 +104,15 @@ class HomeView extends HookWidget {
             ),
           ),
           home.maybeWhen(
-            data: (_, __, ___, operations) => TransactionInfo(
+            data: (user, __, ___, operations, ____) => TransactionInfo(
               operatoins: operations,
+              user: user,
               onRefresh: () async {
                 return homeNotifier.getAccount();
               },
             ),
             loading: () => TransactionInfo(
+              user: null,
               operatoins: const [],
               isLoading: true,
               onRefresh: () async {
@@ -98,6 +122,52 @@ class HomeView extends HookWidget {
             orElse: () => Container(),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TezosInfo extends StatelessWidget {
+  final Tezos tezos;
+  const TezosInfo({
+    Key? key,
+    required this.tezos,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            DisplayText(
+              text: 'XTZ/USD : ${tezos.currentPrice}',
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            DisplayText(
+              text: 'Market Cap : \$ ${tezos.marketCap.toStringAsFixed(2)}',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            DisplayText(
+              text: 'Total Volume\$ ${tezos.totalVolume.toStringAsFixed(2)}',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            DisplayText(
+              text: 'Price Change in 24h \$ ${tezos.priceChangePercentage24h}',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            )
+          ],
+        ),
       ),
     );
   }

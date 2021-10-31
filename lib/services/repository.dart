@@ -18,7 +18,7 @@ class Repository {
 
   Map<String, String> networksChains = {
     'Mainnet': 'https://mainnet.smartpy.io',
-    'Granada': 'https://granadanet.smartpy.io',
+    'Granada': 'https://granadanet.api.tez.ie',
   };
   final storage = const FlutterSecureStorage();
 
@@ -88,6 +88,7 @@ class Repository {
         operations.add(Operation.fromJson(json[i]));
       }
       return operations;
+      
     } catch (e) {
       return [];
     }

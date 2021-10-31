@@ -1,5 +1,5 @@
-import 'package:anthos/provider/provider.dart';
-import 'package:anthos/widgets/display.text.dart';
+import '../../provider/provider.dart';
+import '../../widgets/display.text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

@@ -725,10 +725,10 @@ Target _$TargetFromJson(Map<String, dynamic> json) {
 class _$TargetTearOff {
   const _$TargetTearOff();
 
-  _Target call({required String alias, required String address}) {
+  _Target call({required String address, String? alias}) {
     return _Target(
-      alias: alias,
       address: address,
+      alias: alias,
     );
   }
 
@@ -742,8 +742,8 @@ const $Target = _$TargetTearOff();
 
 /// @nodoc
 mixin _$Target {
-  String get alias => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
+  String? get alias => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -754,7 +754,7 @@ mixin _$Target {
 abstract class $TargetCopyWith<$Res> {
   factory $TargetCopyWith(Target value, $Res Function(Target) then) =
       _$TargetCopyWithImpl<$Res>;
-  $Res call({String alias, String address});
+  $Res call({String address, String? alias});
 }
 
 /// @nodoc
@@ -767,18 +767,18 @@ class _$TargetCopyWithImpl<$Res> implements $TargetCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? alias = freezed,
     Object? address = freezed,
+    Object? alias = freezed,
   }) {
     return _then(_value.copyWith(
-      alias: alias == freezed
-          ? _value.alias
-          : alias // ignore: cast_nullable_to_non_nullable
-              as String,
       address: address == freezed
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      alias: alias == freezed
+          ? _value.alias
+          : alias // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -788,7 +788,7 @@ abstract class _$TargetCopyWith<$Res> implements $TargetCopyWith<$Res> {
   factory _$TargetCopyWith(_Target value, $Res Function(_Target) then) =
       __$TargetCopyWithImpl<$Res>;
   @override
-  $Res call({String alias, String address});
+  $Res call({String address, String? alias});
 }
 
 /// @nodoc
@@ -802,18 +802,18 @@ class __$TargetCopyWithImpl<$Res> extends _$TargetCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? alias = freezed,
     Object? address = freezed,
+    Object? alias = freezed,
   }) {
     return _then(_Target(
-      alias: alias == freezed
-          ? _value.alias
-          : alias // ignore: cast_nullable_to_non_nullable
-              as String,
       address: address == freezed
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      alias: alias == freezed
+          ? _value.alias
+          : alias // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -821,36 +821,37 @@ class __$TargetCopyWithImpl<$Res> extends _$TargetCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Target implements _Target {
-  const _$_Target({required this.alias, required this.address});
+  const _$_Target({required this.address, this.alias});
 
   factory _$_Target.fromJson(Map<String, dynamic> json) =>
       _$$_TargetFromJson(json);
 
   @override
-  final String alias;
-  @override
   final String address;
+  @override
+  final String? alias;
 
   @override
   String toString() {
-    return 'Target(alias: $alias, address: $address)';
+    return 'Target(address: $address, alias: $alias)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Target &&
-            (identical(other.alias, alias) ||
-                const DeepCollectionEquality().equals(other.alias, alias)) &&
             (identical(other.address, address) ||
-                const DeepCollectionEquality().equals(other.address, address)));
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.alias, alias) ||
+                const DeepCollectionEquality().equals(other.alias, alias)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(alias) ^
-      const DeepCollectionEquality().hash(address);
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(alias);
 
   @JsonKey(ignore: true)
   @override
@@ -864,15 +865,14 @@ class _$_Target implements _Target {
 }
 
 abstract class _Target implements Target {
-  const factory _Target({required String alias, required String address}) =
-      _$_Target;
+  const factory _Target({required String address, String? alias}) = _$_Target;
 
   factory _Target.fromJson(Map<String, dynamic> json) = _$_Target.fromJson;
 
   @override
-  String get alias => throw _privateConstructorUsedError;
-  @override
   String get address => throw _privateConstructorUsedError;
+  @override
+  String? get alias => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TargetCopyWith<_Target> get copyWith => throw _privateConstructorUsedError;

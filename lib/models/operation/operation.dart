@@ -12,6 +12,7 @@ class Operation with _$Operation {
     required final String block,
     required final String hash,
     required final Sender sender,
+    final Target? target,
     final int? counter,
     final int? gasLimit,
     final int? gasUsed,
@@ -24,8 +25,20 @@ class Operation with _$Operation {
     final String? status,
     final bool? hasInternals,
     final String? parameters,
-  }) = _TransactionOperation;
+  }) = TransactionOperation;
 
+  // const factory Operation.reveal({
+  //   required final int id,
+  //   required final int level,
+  //   required final String timestamp,
+  //   required final String block,
+  //   required final String hash,
+  //   required final Sender sender,
+  //   final String? status,
+  //   final int? counter,
+  //   final int? gasLimit,
+  //   final int? gasUsed,
+  // }) = RevealOperation;
   factory Operation.fromJson(Map<String, dynamic> json) =>
       _$OperationFromJson(json);
 }

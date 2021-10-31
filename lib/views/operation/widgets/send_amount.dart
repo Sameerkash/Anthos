@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:anthos/widgets/buttons.dart';
-import 'package:anthos/widgets/display.text.dart';
+import '../../../widgets/buttons.dart';
+import '../../../widgets/display.text.dart';
 
 class AmountPage extends StatelessWidget {
   final TextEditingController controller;
   final void Function() onSend;
+  final bool? isSending;
   const AmountPage({
     Key? key,
     required this.controller,
     required this.onSend,
+    this.isSending = false,
   }) : super(key: key);
 
   @override
@@ -25,9 +27,10 @@ class AmountPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: 60,
+                  width: 100,
                   child: TextField(
                     controller: controller,
+                    style: const TextStyle(fontSize: 60),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     cursorHeight: 40,
@@ -48,7 +51,7 @@ class AmountPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 const DisplayText(
-                  text: 'mutez',
+                  text: 'Tez',
                   fontSize: 16,
                 )
               ],
@@ -84,6 +87,8 @@ class AmountPage extends StatelessWidget {
             child: ElevatedDisplayTextButton(
               text: 'Send',
               onPressed: onSend,
+              isLoading: isSending,
+              enabled: !isSending!,
             ),
           ),
         ),

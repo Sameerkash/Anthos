@@ -1,4 +1,4 @@
-import 'package:anthos/views/auth/auth.vm.dart';
+import '../views/auth/auth.vm.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../views/home/home.vm.dart';
 import '../services/repository.dart';

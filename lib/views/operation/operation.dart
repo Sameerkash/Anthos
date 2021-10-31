@@ -1,28 +1,50 @@
-import 'package:anthos/utils/datetime_format.dart';
-import 'package:anthos/widgets/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:timelines/timelines.dart';
+
+import '../../utils/datetime_format.dart';
+import '../../widgets/buttons.dart';
 
 import '../../models/operation/operation.dart';
 import '../../widgets/display.text.dart';
 
 class OperationView extends StatelessWidget {
   final Operation operation;
+  final bool isSameAccount;
   const OperationView({
     Key? key,
     required this.operation,
+    required this.isSameAccount,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> details = [
-      OperationDetailCard(
-        keyText: 'Amount Transacted',
-        value: '${operation.amount} mutez',
-      ),
-      OperationDetailCard(
-        keyText: 'Sender',
-        value: operation.sender.address,
+      if (operation is TransactionOperation)
+        OperationDetailCard(
+          keyText: 'Amount Transacted',
+          value: '${operation.amount} mutez',
+        ),
+      InkWell(
+        onTap: () {
+          Clipboard.setData(ClipboardData(text: operation.sender.address));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Address copied to clipboard!'),
+              duration: const Duration(seconds: 2),
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
+        },
+        child: OperationDetailCard(
+          keyText: isSameAccount ? 'Sent to' : 'From',
+          value: isSameAccount
+              ? operation.target?.address ?? ''
+              : operation.sender.address,
+        ),
       ),
       OperationDetailCard(
         keyText: 'Tx Hash',

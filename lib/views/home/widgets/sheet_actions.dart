@@ -1,6 +1,6 @@
-import 'package:anthos/views/operation/recieve_operation.dart';
+import '../../operation/recieve_operation.dart';
 
-import 'package:anthos/views/operation/send_operation.dart';
+import '../../operation/send_operation.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../widgets/buttons.dart';

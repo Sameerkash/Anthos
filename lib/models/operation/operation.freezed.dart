@@ -14,20 +14,21 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Operation _$OperationFromJson(Map<String, dynamic> json) {
-  return _TransactionOperation.fromJson(json);
+  return TransactionOperation.fromJson(json);
 }
 
 /// @nodoc
 class _$OperationTearOff {
   const _$OperationTearOff();
 
-  _TransactionOperation transaction(
+  TransactionOperation transaction(
       {required int id,
       required int level,
       required String timestamp,
       required String block,
       required String hash,
       required Sender sender,
+      Target? target,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -40,13 +41,14 @@ class _$OperationTearOff {
       String? status,
       bool? hasInternals,
       String? parameters}) {
-    return _TransactionOperation(
+    return TransactionOperation(
       id: id,
       level: level,
       timestamp: timestamp,
       block: block,
       hash: hash,
       sender: sender,
+      target: target,
       counter: counter,
       gasLimit: gasLimit,
       gasUsed: gasUsed,
@@ -78,6 +80,7 @@ mixin _$Operation {
   String get block => throw _privateConstructorUsedError;
   String get hash => throw _privateConstructorUsedError;
   Sender get sender => throw _privateConstructorUsedError;
+  Target? get target => throw _privateConstructorUsedError;
   int? get counter => throw _privateConstructorUsedError;
   int? get gasLimit => throw _privateConstructorUsedError;
   int? get gasUsed => throw _privateConstructorUsedError;
@@ -100,6 +103,7 @@ mixin _$Operation {
             String block,
             String hash,
             Sender sender,
+            Target? target,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -124,6 +128,7 @@ mixin _$Operation {
             String block,
             String hash,
             Sender sender,
+            Target? target,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -148,6 +153,7 @@ mixin _$Operation {
             String block,
             String hash,
             Sender sender,
+            Target? target,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -166,17 +172,17 @@ mixin _$Operation {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TransactionOperation value) transaction,
+    required TResult Function(TransactionOperation value) transaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TransactionOperation value)? transaction,
+    TResult Function(TransactionOperation value)? transaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TransactionOperation value)? transaction,
+    TResult Function(TransactionOperation value)? transaction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -197,6 +203,7 @@ abstract class $OperationCopyWith<$Res> {
       String block,
       String hash,
       Sender sender,
+      Target? target,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -211,6 +218,7 @@ abstract class $OperationCopyWith<$Res> {
       String? parameters});
 
   $SenderCopyWith<$Res> get sender;
+  $TargetCopyWith<$Res>? get target;
 }
 
 /// @nodoc
@@ -229,6 +237,7 @@ class _$OperationCopyWithImpl<$Res> implements $OperationCopyWith<$Res> {
     Object? block = freezed,
     Object? hash = freezed,
     Object? sender = freezed,
+    Object? target = freezed,
     Object? counter = freezed,
     Object? gasLimit = freezed,
     Object? gasUsed = freezed,
@@ -267,6 +276,10 @@ class _$OperationCopyWithImpl<$Res> implements $OperationCopyWith<$Res> {
           ? _value.sender
           : sender // ignore: cast_nullable_to_non_nullable
               as Sender,
+      target: target == freezed
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as Target?,
       counter: counter == freezed
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
@@ -324,14 +337,25 @@ class _$OperationCopyWithImpl<$Res> implements $OperationCopyWith<$Res> {
       return _then(_value.copyWith(sender: value));
     });
   }
+
+  @override
+  $TargetCopyWith<$Res>? get target {
+    if (_value.target == null) {
+      return null;
+    }
+
+    return $TargetCopyWith<$Res>(_value.target!, (value) {
+      return _then(_value.copyWith(target: value));
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$TransactionOperationCopyWith<$Res>
+abstract class $TransactionOperationCopyWith<$Res>
     implements $OperationCopyWith<$Res> {
-  factory _$TransactionOperationCopyWith(_TransactionOperation value,
-          $Res Function(_TransactionOperation) then) =
-      __$TransactionOperationCopyWithImpl<$Res>;
+  factory $TransactionOperationCopyWith(TransactionOperation value,
+          $Res Function(TransactionOperation) then) =
+      _$TransactionOperationCopyWithImpl<$Res>;
   @override
   $Res call(
       {int id,
@@ -340,6 +364,7 @@ abstract class _$TransactionOperationCopyWith<$Res>
       String block,
       String hash,
       Sender sender,
+      Target? target,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -355,18 +380,20 @@ abstract class _$TransactionOperationCopyWith<$Res>
 
   @override
   $SenderCopyWith<$Res> get sender;
+  @override
+  $TargetCopyWith<$Res>? get target;
 }
 
 /// @nodoc
-class __$TransactionOperationCopyWithImpl<$Res>
+class _$TransactionOperationCopyWithImpl<$Res>
     extends _$OperationCopyWithImpl<$Res>
-    implements _$TransactionOperationCopyWith<$Res> {
-  __$TransactionOperationCopyWithImpl(
-      _TransactionOperation _value, $Res Function(_TransactionOperation) _then)
-      : super(_value, (v) => _then(v as _TransactionOperation));
+    implements $TransactionOperationCopyWith<$Res> {
+  _$TransactionOperationCopyWithImpl(
+      TransactionOperation _value, $Res Function(TransactionOperation) _then)
+      : super(_value, (v) => _then(v as TransactionOperation));
 
   @override
-  _TransactionOperation get _value => super._value as _TransactionOperation;
+  TransactionOperation get _value => super._value as TransactionOperation;
 
   @override
   $Res call({
@@ -376,6 +403,7 @@ class __$TransactionOperationCopyWithImpl<$Res>
     Object? block = freezed,
     Object? hash = freezed,
     Object? sender = freezed,
+    Object? target = freezed,
     Object? counter = freezed,
     Object? gasLimit = freezed,
     Object? gasUsed = freezed,
@@ -389,7 +417,7 @@ class __$TransactionOperationCopyWithImpl<$Res>
     Object? hasInternals = freezed,
     Object? parameters = freezed,
   }) {
-    return _then(_TransactionOperation(
+    return _then(TransactionOperation(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -414,6 +442,10 @@ class __$TransactionOperationCopyWithImpl<$Res>
           ? _value.sender
           : sender // ignore: cast_nullable_to_non_nullable
               as Sender,
+      target: target == freezed
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as Target?,
       counter: counter == freezed
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
@@ -468,14 +500,15 @@ class __$TransactionOperationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TransactionOperation implements _TransactionOperation {
-  const _$_TransactionOperation(
+class _$TransactionOperation implements TransactionOperation {
+  const _$TransactionOperation(
       {required this.id,
       required this.level,
       required this.timestamp,
       required this.block,
       required this.hash,
       required this.sender,
+      this.target,
       this.counter,
       this.gasLimit,
       this.gasUsed,
@@ -489,8 +522,8 @@ class _$_TransactionOperation implements _TransactionOperation {
       this.hasInternals,
       this.parameters});
 
-  factory _$_TransactionOperation.fromJson(Map<String, dynamic> json) =>
-      _$$_TransactionOperationFromJson(json);
+  factory _$TransactionOperation.fromJson(Map<String, dynamic> json) =>
+      _$$TransactionOperationFromJson(json);
 
   @override
   final int id;
@@ -504,6 +537,8 @@ class _$_TransactionOperation implements _TransactionOperation {
   final String hash;
   @override
   final Sender sender;
+  @override
+  final Target? target;
   @override
   final int? counter;
   @override
@@ -531,13 +566,13 @@ class _$_TransactionOperation implements _TransactionOperation {
 
   @override
   String toString() {
-    return 'Operation.transaction(id: $id, level: $level, timestamp: $timestamp, block: $block, hash: $hash, sender: $sender, counter: $counter, gasLimit: $gasLimit, gasUsed: $gasUsed, storageLimit: $storageLimit, storageUsed: $storageUsed, bakerFee: $bakerFee, storageFee: $storageFee, allocationFee: $allocationFee, amount: $amount, status: $status, hasInternals: $hasInternals, parameters: $parameters)';
+    return 'Operation.transaction(id: $id, level: $level, timestamp: $timestamp, block: $block, hash: $hash, sender: $sender, target: $target, counter: $counter, gasLimit: $gasLimit, gasUsed: $gasUsed, storageLimit: $storageLimit, storageUsed: $storageUsed, bakerFee: $bakerFee, storageFee: $storageFee, allocationFee: $allocationFee, amount: $amount, status: $status, hasInternals: $hasInternals, parameters: $parameters)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _TransactionOperation &&
+        (other is TransactionOperation &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.level, level) ||
@@ -551,6 +586,8 @@ class _$_TransactionOperation implements _TransactionOperation {
                 const DeepCollectionEquality().equals(other.hash, hash)) &&
             (identical(other.sender, sender) ||
                 const DeepCollectionEquality().equals(other.sender, sender)) &&
+            (identical(other.target, target) ||
+                const DeepCollectionEquality().equals(other.target, target)) &&
             (identical(other.counter, counter) ||
                 const DeepCollectionEquality()
                     .equals(other.counter, counter)) &&
@@ -596,6 +633,7 @@ class _$_TransactionOperation implements _TransactionOperation {
       const DeepCollectionEquality().hash(block) ^
       const DeepCollectionEquality().hash(hash) ^
       const DeepCollectionEquality().hash(sender) ^
+      const DeepCollectionEquality().hash(target) ^
       const DeepCollectionEquality().hash(counter) ^
       const DeepCollectionEquality().hash(gasLimit) ^
       const DeepCollectionEquality().hash(gasUsed) ^
@@ -611,8 +649,8 @@ class _$_TransactionOperation implements _TransactionOperation {
 
   @JsonKey(ignore: true)
   @override
-  _$TransactionOperationCopyWith<_TransactionOperation> get copyWith =>
-      __$TransactionOperationCopyWithImpl<_TransactionOperation>(
+  $TransactionOperationCopyWith<TransactionOperation> get copyWith =>
+      _$TransactionOperationCopyWithImpl<TransactionOperation>(
           this, _$identity);
 
   @override
@@ -625,6 +663,7 @@ class _$_TransactionOperation implements _TransactionOperation {
             String block,
             String hash,
             Sender sender,
+            Target? target,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -646,6 +685,7 @@ class _$_TransactionOperation implements _TransactionOperation {
         block,
         hash,
         sender,
+        target,
         counter,
         gasLimit,
         gasUsed,
@@ -670,6 +710,7 @@ class _$_TransactionOperation implements _TransactionOperation {
             String block,
             String hash,
             Sender sender,
+            Target? target,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -691,6 +732,7 @@ class _$_TransactionOperation implements _TransactionOperation {
         block,
         hash,
         sender,
+        target,
         counter,
         gasLimit,
         gasUsed,
@@ -715,6 +757,7 @@ class _$_TransactionOperation implements _TransactionOperation {
             String block,
             String hash,
             Sender sender,
+            Target? target,
             int? counter,
             int? gasLimit,
             int? gasUsed,
@@ -738,6 +781,7 @@ class _$_TransactionOperation implements _TransactionOperation {
           block,
           hash,
           sender,
+          target,
           counter,
           gasLimit,
           gasUsed,
@@ -757,7 +801,7 @@ class _$_TransactionOperation implements _TransactionOperation {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TransactionOperation value) transaction,
+    required TResult Function(TransactionOperation value) transaction,
   }) {
     return transaction(this);
   }
@@ -765,7 +809,7 @@ class _$_TransactionOperation implements _TransactionOperation {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TransactionOperation value)? transaction,
+    TResult Function(TransactionOperation value)? transaction,
   }) {
     return transaction?.call(this);
   }
@@ -773,7 +817,7 @@ class _$_TransactionOperation implements _TransactionOperation {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TransactionOperation value)? transaction,
+    TResult Function(TransactionOperation value)? transaction,
     required TResult orElse(),
   }) {
     if (transaction != null) {
@@ -784,18 +828,19 @@ class _$_TransactionOperation implements _TransactionOperation {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TransactionOperationToJson(this);
+    return _$$TransactionOperationToJson(this);
   }
 }
 
-abstract class _TransactionOperation implements Operation {
-  const factory _TransactionOperation(
+abstract class TransactionOperation implements Operation {
+  const factory TransactionOperation(
       {required int id,
       required int level,
       required String timestamp,
       required String block,
       required String hash,
       required Sender sender,
+      Target? target,
       int? counter,
       int? gasLimit,
       int? gasUsed,
@@ -807,10 +852,10 @@ abstract class _TransactionOperation implements Operation {
       int? amount,
       String? status,
       bool? hasInternals,
-      String? parameters}) = _$_TransactionOperation;
+      String? parameters}) = _$TransactionOperation;
 
-  factory _TransactionOperation.fromJson(Map<String, dynamic> json) =
-      _$_TransactionOperation.fromJson;
+  factory TransactionOperation.fromJson(Map<String, dynamic> json) =
+      _$TransactionOperation.fromJson;
 
   @override
   int get id => throw _privateConstructorUsedError;
@@ -824,6 +869,8 @@ abstract class _TransactionOperation implements Operation {
   String get hash => throw _privateConstructorUsedError;
   @override
   Sender get sender => throw _privateConstructorUsedError;
+  @override
+  Target? get target => throw _privateConstructorUsedError;
   @override
   int? get counter => throw _privateConstructorUsedError;
   @override
@@ -850,6 +897,6 @@ abstract class _TransactionOperation implements Operation {
   String? get parameters => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TransactionOperationCopyWith<_TransactionOperation> get copyWith =>
+  $TransactionOperationCopyWith<TransactionOperation> get copyWith =>
       throw _privateConstructorUsedError;
 }

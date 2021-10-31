@@ -1,10 +1,10 @@
-import 'package:anthos/provider/provider.dart';
+import '../../provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:anthos/views/operation/widgets/send_amount.dart';
-import 'package:anthos/widgets/buttons.dart';
-import 'package:anthos/widgets/display.text.dart';
+import 'widgets/send_amount.dart';
+import '../../widgets/buttons.dart';
+import '../../widgets/display.text.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SendOpertation extends HookWidget {
@@ -18,6 +18,8 @@ class SendOpertation extends HookWidget {
     final currentIndex = useState(0);
 
     final home = useProvider(homeProvider.notifier);
+    final h = useProvider(homeProvider)
+        .maybeMap(orElse: () => null, data: (data) => data);
 
     void onPageChanged(int index) {
       pageController.animateToPage(
@@ -43,15 +45,39 @@ class SendOpertation extends HookWidget {
           AddressPage(
             addressController: _addressController,
             onNext: () {
-              onPageChanged(currentIndex.value + 1);
+              if (_addressController.text.isNotEmpty) {
+                onPageChanged(currentIndex.value + 1);
+              }
             },
           ),
           AmountPage(
+            isSending: h?.isSending ?? false,
             controller: amountController,
-            onSend: () {
-              home.sendTransaction(
+            onSend: () async {
+              if (_addressController.text.isNotEmpty &&
+                  amountController.text.isNotEmpty) {
+                await home.sendTransaction(
                   ammount: 1.0,
-                  account: 'tz1WeU9Q6r5AyLfaDajKVmGjuH8nmnUYbM8u');
+                  account: 'tz1WeU9Q6r5AyLfaDajKVmGjuH8nmnUYbM8u',
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Sent!'),
+                    duration: const Duration(seconds: 12),
+                    elevation: 3,
+                    action: SnackBarAction(
+                      label: 'OK',
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
+              }
             },
           ),
         ],

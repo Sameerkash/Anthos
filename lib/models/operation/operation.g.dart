@@ -6,15 +6,18 @@ part of 'operation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TransactionOperation _$$_TransactionOperationFromJson(
+_$TransactionOperation _$$TransactionOperationFromJson(
         Map<String, dynamic> json) =>
-    _$_TransactionOperation(
+    _$TransactionOperation(
       id: json['id'] as int,
       level: json['level'] as int,
       timestamp: json['timestamp'] as String,
       block: json['block'] as String,
       hash: json['hash'] as String,
       sender: Sender.fromJson(json['sender'] as Map<String, dynamic>),
+      target: json['target'] == null
+          ? null
+          : Target.fromJson(json['target'] as Map<String, dynamic>),
       counter: json['counter'] as int?,
       gasLimit: json['gasLimit'] as int?,
       gasUsed: json['gasUsed'] as int?,
@@ -29,8 +32,8 @@ _$_TransactionOperation _$$_TransactionOperationFromJson(
       parameters: json['parameters'] as String?,
     );
 
-Map<String, dynamic> _$$_TransactionOperationToJson(
-        _$_TransactionOperation instance) =>
+Map<String, dynamic> _$$TransactionOperationToJson(
+        _$TransactionOperation instance) =>
     <String, dynamic>{
       'id': instance.id,
       'level': instance.level,
@@ -38,6 +41,7 @@ Map<String, dynamic> _$$_TransactionOperationToJson(
       'block': instance.block,
       'hash': instance.hash,
       'sender': instance.sender,
+      'target': instance.target,
       'counter': instance.counter,
       'gasLimit': instance.gasLimit,
       'gasUsed': instance.gasUsed,
