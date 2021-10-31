@@ -18,12 +18,12 @@ class Account with _$Account {
   const factory Account.user({
     required final String address,
     required final int balance,
+    final String? secret,
     final String? publicKey,
     final String? alias,
     final bool? revealed,
     final int? counter,
     final String? privateKey,
-    final String? secret,
     final int? delegationLevel,
     final String? delegationTime,
     final int? numContracts,
@@ -42,7 +42,7 @@ class Account with _$Account {
   const factory Account.contract({
     required final String kind,
     required final String privateKey,
-    required final String secret,
+     final String? secret,
     required final String address,
     final List<String>? tzips,
     final String? alias,
@@ -66,9 +66,9 @@ class Account with _$Account {
   const factory Account.empty({
     required final String address,
     @Default(0) final int? balance,
-    final int? counter,
-    final String? privateKey,
     final String? secret,
+    required final String privateKey,
+    final int? counter,
   }) = EmptyAccount;
 
   factory Account.fromJson(Map<String, Object?> json) =>

@@ -54,12 +54,12 @@ class _$AccountTearOff {
   UserAccount user(
       {required String address,
       required int balance,
+      String? secret,
       String? publicKey,
       String? alias,
       bool? revealed,
       int? counter,
       String? privateKey,
-      String? secret,
       int? delegationLevel,
       String? delegationTime,
       int? numContracts,
@@ -76,12 +76,12 @@ class _$AccountTearOff {
     return UserAccount(
       address: address,
       balance: balance,
+      secret: secret,
       publicKey: publicKey,
       alias: alias,
       revealed: revealed,
       counter: counter,
       privateKey: privateKey,
-      secret: secret,
       delegationLevel: delegationLevel,
       delegationTime: delegationTime,
       numContracts: numContracts,
@@ -101,7 +101,7 @@ class _$AccountTearOff {
   ContractAccount contract(
       {required String kind,
       required String privateKey,
-      required String secret,
+      String? secret,
       required String address,
       List<String>? tzips,
       String? alias,
@@ -148,15 +148,15 @@ class _$AccountTearOff {
   EmptyAccount empty(
       {required String address,
       int? balance = 0,
-      int? counter,
-      String? privateKey,
-      String? secret}) {
+      String? secret,
+      required String privateKey,
+      int? counter}) {
     return EmptyAccount(
       address: address,
       balance: balance,
-      counter: counter,
-      privateKey: privateKey,
       secret: secret,
+      privateKey: privateKey,
+      counter: counter,
     );
   }
 
@@ -185,12 +185,12 @@ mixin _$Account {
     required TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -208,7 +208,7 @@ mixin _$Account {
     required TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -228,8 +228,8 @@ mixin _$Account {
             int? typeHash,
             int? codeHash)
         contract,
-    required TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)
+    required TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)
         empty,
   }) =>
       throw _privateConstructorUsedError;
@@ -241,12 +241,12 @@ mixin _$Account {
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -264,7 +264,7 @@ mixin _$Account {
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -284,8 +284,8 @@ mixin _$Account {
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
   }) =>
       throw _privateConstructorUsedError;
@@ -297,12 +297,12 @@ mixin _$Account {
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -320,7 +320,7 @@ mixin _$Account {
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -340,8 +340,8 @@ mixin _$Account {
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
     required TResult orElse(),
   }) =>
@@ -569,12 +569,12 @@ class _$UserAccountLocal
     required TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -592,7 +592,7 @@ class _$UserAccountLocal
     required TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -612,8 +612,8 @@ class _$UserAccountLocal
             int? typeHash,
             int? codeHash)
         contract,
-    required TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)
+    required TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)
         empty,
   }) {
     return userLocal(
@@ -629,12 +629,12 @@ class _$UserAccountLocal
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -652,7 +652,7 @@ class _$UserAccountLocal
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -672,8 +672,8 @@ class _$UserAccountLocal
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
   }) {
     return userLocal?.call(
@@ -689,12 +689,12 @@ class _$UserAccountLocal
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -712,7 +712,7 @@ class _$UserAccountLocal
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -732,8 +732,8 @@ class _$UserAccountLocal
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
     required TResult orElse(),
   }) {
@@ -821,12 +821,12 @@ abstract class $UserAccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
   $Res call(
       {String address,
       int balance,
+      String? secret,
       String? publicKey,
       String? alias,
       bool? revealed,
       int? counter,
       String? privateKey,
-      String? secret,
       int? delegationLevel,
       String? delegationTime,
       int? numContracts,
@@ -856,12 +856,12 @@ class _$UserAccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
   $Res call({
     Object? address = freezed,
     Object? balance = freezed,
+    Object? secret = freezed,
     Object? publicKey = freezed,
     Object? alias = freezed,
     Object? revealed = freezed,
     Object? counter = freezed,
     Object? privateKey = freezed,
-    Object? secret = freezed,
     Object? delegationLevel = freezed,
     Object? delegationTime = freezed,
     Object? numContracts = freezed,
@@ -885,6 +885,10 @@ class _$UserAccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as int,
+      secret: secret == freezed
+          ? _value.secret
+          : secret // ignore: cast_nullable_to_non_nullable
+              as String?,
       publicKey: publicKey == freezed
           ? _value.publicKey
           : publicKey // ignore: cast_nullable_to_non_nullable
@@ -904,10 +908,6 @@ class _$UserAccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
       privateKey: privateKey == freezed
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
-              as String?,
-      secret: secret == freezed
-          ? _value.secret
-          : secret // ignore: cast_nullable_to_non_nullable
               as String?,
       delegationLevel: delegationLevel == freezed
           ? _value.delegationLevel
@@ -971,12 +971,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
   const _$UserAccount(
       {required this.address,
       required this.balance,
+      this.secret,
       this.publicKey,
       this.alias,
       this.revealed,
       this.counter,
       this.privateKey,
-      this.secret,
       this.delegationLevel,
       this.delegationTime,
       this.numContracts,
@@ -999,6 +999,8 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
   @override
   final int balance;
   @override
+  final String? secret;
+  @override
   final String? publicKey;
   @override
   final String? alias;
@@ -1008,8 +1010,6 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
   final int? counter;
   @override
   final String? privateKey;
-  @override
-  final String? secret;
   @override
   final int? delegationLevel;
   @override
@@ -1039,7 +1039,7 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Account.user(address: $address, balance: $balance, publicKey: $publicKey, alias: $alias, revealed: $revealed, counter: $counter, privateKey: $privateKey, secret: $secret, delegationLevel: $delegationLevel, delegationTime: $delegationTime, numContracts: $numContracts, numActivations: $numActivations, numDelegations: $numDelegations, numOriginations: $numOriginations, numTransactions: $numTransactions, numReveals: $numReveals, numMigrations: $numMigrations, firstActivity: $firstActivity, firstActivityTime: $firstActivityTime, lastActivity: $lastActivity, lastActivityTime: $lastActivityTime)';
+    return 'Account.user(address: $address, balance: $balance, secret: $secret, publicKey: $publicKey, alias: $alias, revealed: $revealed, counter: $counter, privateKey: $privateKey, delegationLevel: $delegationLevel, delegationTime: $delegationTime, numContracts: $numContracts, numActivations: $numActivations, numDelegations: $numDelegations, numOriginations: $numOriginations, numTransactions: $numTransactions, numReveals: $numReveals, numMigrations: $numMigrations, firstActivity: $firstActivity, firstActivityTime: $firstActivityTime, lastActivity: $lastActivity, lastActivityTime: $lastActivityTime)';
   }
 
   @override
@@ -1049,12 +1049,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
       ..add(DiagnosticsProperty('type', 'Account.user'))
       ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('balance', balance))
+      ..add(DiagnosticsProperty('secret', secret))
       ..add(DiagnosticsProperty('publicKey', publicKey))
       ..add(DiagnosticsProperty('alias', alias))
       ..add(DiagnosticsProperty('revealed', revealed))
       ..add(DiagnosticsProperty('counter', counter))
       ..add(DiagnosticsProperty('privateKey', privateKey))
-      ..add(DiagnosticsProperty('secret', secret))
       ..add(DiagnosticsProperty('delegationLevel', delegationLevel))
       ..add(DiagnosticsProperty('delegationTime', delegationTime))
       ..add(DiagnosticsProperty('numContracts', numContracts))
@@ -1080,6 +1080,8 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
             (identical(other.balance, balance) ||
                 const DeepCollectionEquality()
                     .equals(other.balance, balance)) &&
+            (identical(other.secret, secret) ||
+                const DeepCollectionEquality().equals(other.secret, secret)) &&
             (identical(other.publicKey, publicKey) ||
                 const DeepCollectionEquality()
                     .equals(other.publicKey, publicKey)) &&
@@ -1094,8 +1096,6 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
             (identical(other.privateKey, privateKey) ||
                 const DeepCollectionEquality()
                     .equals(other.privateKey, privateKey)) &&
-            (identical(other.secret, secret) ||
-                const DeepCollectionEquality().equals(other.secret, secret)) &&
             (identical(other.delegationLevel, delegationLevel) ||
                 const DeepCollectionEquality()
                     .equals(other.delegationLevel, delegationLevel)) &&
@@ -1142,12 +1142,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(balance) ^
+      const DeepCollectionEquality().hash(secret) ^
       const DeepCollectionEquality().hash(publicKey) ^
       const DeepCollectionEquality().hash(alias) ^
       const DeepCollectionEquality().hash(revealed) ^
       const DeepCollectionEquality().hash(counter) ^
       const DeepCollectionEquality().hash(privateKey) ^
-      const DeepCollectionEquality().hash(secret) ^
       const DeepCollectionEquality().hash(delegationLevel) ^
       const DeepCollectionEquality().hash(delegationTime) ^
       const DeepCollectionEquality().hash(numContracts) ^
@@ -1181,12 +1181,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
     required TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -1204,7 +1204,7 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
     required TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -1224,19 +1224,19 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
             int? typeHash,
             int? codeHash)
         contract,
-    required TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)
+    required TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)
         empty,
   }) {
     return user(
         address,
         balance,
+        secret,
         publicKey,
         alias,
         revealed,
         counter,
         privateKey,
-        secret,
         delegationLevel,
         delegationTime,
         numContracts,
@@ -1261,12 +1261,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -1284,7 +1284,7 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -1304,19 +1304,19 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
   }) {
     return user?.call(
         address,
         balance,
+        secret,
         publicKey,
         alias,
         revealed,
         counter,
         privateKey,
-        secret,
         delegationLevel,
         delegationTime,
         numContracts,
@@ -1341,12 +1341,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -1364,7 +1364,7 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -1384,8 +1384,8 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
     required TResult orElse(),
   }) {
@@ -1393,12 +1393,12 @@ class _$UserAccount with DiagnosticableTreeMixin implements UserAccount {
       return user(
           address,
           balance,
+          secret,
           publicKey,
           alias,
           revealed,
           counter,
           privateKey,
-          secret,
           delegationLevel,
           delegationTime,
           numContracts,
@@ -1463,12 +1463,12 @@ abstract class UserAccount implements Account {
   const factory UserAccount(
       {required String address,
       required int balance,
+      String? secret,
       String? publicKey,
       String? alias,
       bool? revealed,
       int? counter,
       String? privateKey,
-      String? secret,
       int? delegationLevel,
       String? delegationTime,
       int? numContracts,
@@ -1489,12 +1489,12 @@ abstract class UserAccount implements Account {
   @override
   String get address => throw _privateConstructorUsedError;
   int get balance => throw _privateConstructorUsedError;
+  String? get secret => throw _privateConstructorUsedError;
   String? get publicKey => throw _privateConstructorUsedError;
   String? get alias => throw _privateConstructorUsedError;
   bool? get revealed => throw _privateConstructorUsedError;
   int? get counter => throw _privateConstructorUsedError;
   String? get privateKey => throw _privateConstructorUsedError;
-  String? get secret => throw _privateConstructorUsedError;
   int? get delegationLevel => throw _privateConstructorUsedError;
   String? get delegationTime => throw _privateConstructorUsedError;
   int? get numContracts => throw _privateConstructorUsedError;
@@ -1524,7 +1524,7 @@ abstract class $ContractAccountCopyWith<$Res>
   $Res call(
       {String kind,
       String privateKey,
-      String secret,
+      String? secret,
       String address,
       List<String>? tzips,
       String? alias,
@@ -1591,7 +1591,7 @@ class _$ContractAccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
       secret: secret == freezed
           ? _value.secret
           : secret // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       address: address == freezed
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -1676,7 +1676,7 @@ class _$ContractAccount
   const _$ContractAccount(
       {required this.kind,
       required this.privateKey,
-      required this.secret,
+      this.secret,
       required this.address,
       this.tzips,
       this.alias,
@@ -1704,7 +1704,7 @@ class _$ContractAccount
   @override
   final String privateKey;
   @override
-  final String secret;
+  final String? secret;
   @override
   final String address;
   @override
@@ -1884,12 +1884,12 @@ class _$ContractAccount
     required TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -1907,7 +1907,7 @@ class _$ContractAccount
     required TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -1927,8 +1927,8 @@ class _$ContractAccount
             int? typeHash,
             int? codeHash)
         contract,
-    required TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)
+    required TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)
         empty,
   }) {
     return contract(
@@ -1964,12 +1964,12 @@ class _$ContractAccount
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -1987,7 +1987,7 @@ class _$ContractAccount
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -2007,8 +2007,8 @@ class _$ContractAccount
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
   }) {
     return contract?.call(
@@ -2044,12 +2044,12 @@ class _$ContractAccount
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -2067,7 +2067,7 @@ class _$ContractAccount
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -2087,8 +2087,8 @@ class _$ContractAccount
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
     required TResult orElse(),
   }) {
@@ -2166,7 +2166,7 @@ abstract class ContractAccount implements Account {
   const factory ContractAccount(
       {required String kind,
       required String privateKey,
-      required String secret,
+      String? secret,
       required String address,
       List<String>? tzips,
       String? alias,
@@ -2191,7 +2191,7 @@ abstract class ContractAccount implements Account {
 
   String get kind => throw _privateConstructorUsedError;
   String get privateKey => throw _privateConstructorUsedError;
-  String get secret => throw _privateConstructorUsedError;
+  String? get secret => throw _privateConstructorUsedError;
   @override
   String get address => throw _privateConstructorUsedError;
   List<String>? get tzips => throw _privateConstructorUsedError;
@@ -2226,9 +2226,9 @@ abstract class $EmptyAccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
   $Res call(
       {String address,
       int? balance,
-      int? counter,
-      String? privateKey,
-      String? secret});
+      String? secret,
+      String privateKey,
+      int? counter});
 }
 
 /// @nodoc
@@ -2245,9 +2245,9 @@ class _$EmptyAccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
   $Res call({
     Object? address = freezed,
     Object? balance = freezed,
-    Object? counter = freezed,
-    Object? privateKey = freezed,
     Object? secret = freezed,
+    Object? privateKey = freezed,
+    Object? counter = freezed,
   }) {
     return _then(EmptyAccount(
       address: address == freezed
@@ -2258,18 +2258,18 @@ class _$EmptyAccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as int?,
-      counter: counter == freezed
-          ? _value.counter
-          : counter // ignore: cast_nullable_to_non_nullable
-              as int?,
-      privateKey: privateKey == freezed
-          ? _value.privateKey
-          : privateKey // ignore: cast_nullable_to_non_nullable
-              as String?,
       secret: secret == freezed
           ? _value.secret
           : secret // ignore: cast_nullable_to_non_nullable
               as String?,
+      privateKey: privateKey == freezed
+          ? _value.privateKey
+          : privateKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      counter: counter == freezed
+          ? _value.counter
+          : counter // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -2280,9 +2280,9 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
   const _$EmptyAccount(
       {required this.address,
       this.balance = 0,
-      this.counter,
-      this.privateKey,
-      this.secret});
+      this.secret,
+      required this.privateKey,
+      this.counter});
 
   factory _$EmptyAccount.fromJson(Map<String, dynamic> json) =>
       _$$EmptyAccountFromJson(json);
@@ -2293,15 +2293,15 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
   @override
   final int? balance;
   @override
-  final int? counter;
-  @override
-  final String? privateKey;
-  @override
   final String? secret;
+  @override
+  final String privateKey;
+  @override
+  final int? counter;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Account.empty(address: $address, balance: $balance, counter: $counter, privateKey: $privateKey, secret: $secret)';
+    return 'Account.empty(address: $address, balance: $balance, secret: $secret, privateKey: $privateKey, counter: $counter)';
   }
 
   @override
@@ -2311,9 +2311,9 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
       ..add(DiagnosticsProperty('type', 'Account.empty'))
       ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('balance', balance))
-      ..add(DiagnosticsProperty('counter', counter))
+      ..add(DiagnosticsProperty('secret', secret))
       ..add(DiagnosticsProperty('privateKey', privateKey))
-      ..add(DiagnosticsProperty('secret', secret));
+      ..add(DiagnosticsProperty('counter', counter));
   }
 
   @override
@@ -2326,14 +2326,13 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
             (identical(other.balance, balance) ||
                 const DeepCollectionEquality()
                     .equals(other.balance, balance)) &&
-            (identical(other.counter, counter) ||
-                const DeepCollectionEquality()
-                    .equals(other.counter, counter)) &&
+            (identical(other.secret, secret) ||
+                const DeepCollectionEquality().equals(other.secret, secret)) &&
             (identical(other.privateKey, privateKey) ||
                 const DeepCollectionEquality()
                     .equals(other.privateKey, privateKey)) &&
-            (identical(other.secret, secret) ||
-                const DeepCollectionEquality().equals(other.secret, secret)));
+            (identical(other.counter, counter) ||
+                const DeepCollectionEquality().equals(other.counter, counter)));
   }
 
   @override
@@ -2341,9 +2340,9 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(balance) ^
-      const DeepCollectionEquality().hash(counter) ^
+      const DeepCollectionEquality().hash(secret) ^
       const DeepCollectionEquality().hash(privateKey) ^
-      const DeepCollectionEquality().hash(secret);
+      const DeepCollectionEquality().hash(counter);
 
   @JsonKey(ignore: true)
   @override
@@ -2364,12 +2363,12 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
     required TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -2387,7 +2386,7 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
     required TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -2407,11 +2406,11 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
             int? typeHash,
             int? codeHash)
         contract,
-    required TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)
+    required TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)
         empty,
   }) {
-    return empty(address, balance, counter, privateKey, secret);
+    return empty(address, balance, secret, privateKey, counter);
   }
 
   @override
@@ -2423,12 +2422,12 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -2446,7 +2445,7 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -2466,11 +2465,11 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
   }) {
-    return empty?.call(address, balance, counter, privateKey, secret);
+    return empty?.call(address, balance, secret, privateKey, counter);
   }
 
   @override
@@ -2482,12 +2481,12 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
     TResult Function(
             String address,
             int balance,
+            String? secret,
             String? publicKey,
             String? alias,
             bool? revealed,
             int? counter,
             String? privateKey,
-            String? secret,
             int? delegationLevel,
             String? delegationTime,
             int? numContracts,
@@ -2505,7 +2504,7 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
     TResult Function(
             String kind,
             String privateKey,
-            String secret,
+            String? secret,
             String address,
             List<String>? tzips,
             String? alias,
@@ -2525,13 +2524,13 @@ class _$EmptyAccount with DiagnosticableTreeMixin implements EmptyAccount {
             int? typeHash,
             int? codeHash)?
         contract,
-    TResult Function(String address, int? balance, int? counter,
-            String? privateKey, String? secret)?
+    TResult Function(String address, int? balance, String? secret,
+            String privateKey, int? counter)?
         empty,
     required TResult orElse(),
   }) {
     if (empty != null) {
-      return empty(address, balance, counter, privateKey, secret);
+      return empty(address, balance, secret, privateKey, counter);
     }
     return orElse();
   }
@@ -2583,9 +2582,9 @@ abstract class EmptyAccount implements Account {
   const factory EmptyAccount(
       {required String address,
       int? balance,
-      int? counter,
-      String? privateKey,
-      String? secret}) = _$EmptyAccount;
+      String? secret,
+      required String privateKey,
+      int? counter}) = _$EmptyAccount;
 
   factory EmptyAccount.fromJson(Map<String, dynamic> json) =
       _$EmptyAccount.fromJson;
@@ -2593,9 +2592,9 @@ abstract class EmptyAccount implements Account {
   @override
   String get address => throw _privateConstructorUsedError;
   int? get balance => throw _privateConstructorUsedError;
-  int? get counter => throw _privateConstructorUsedError;
-  String? get privateKey => throw _privateConstructorUsedError;
   String? get secret => throw _privateConstructorUsedError;
+  String get privateKey => throw _privateConstructorUsedError;
+  int? get counter => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $EmptyAccountCopyWith<EmptyAccount> get copyWith =>

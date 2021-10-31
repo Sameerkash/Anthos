@@ -25,7 +25,7 @@ class TransactionActionButton extends StatelessWidget {
           vertical: 12,
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Row(
         children: [
           Text(
@@ -47,8 +47,10 @@ class TransactionActionButton extends StatelessWidget {
 }
 
 class QRCodeButton extends StatelessWidget {
+  final void Function() onPressed;
   const QRCodeButton({
     Key? key,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -61,7 +63,7 @@ class QRCodeButton extends StatelessWidget {
       child: IconButton(
         color: Colors.white,
         padding: const EdgeInsets.all(5),
-        onPressed: () {},
+        onPressed: onPressed,
         icon: const Icon(
           Icons.qr_code_2,
           size: 20,
@@ -70,10 +72,6 @@ class QRCodeButton extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 class ElevatedDisplayTextButton extends StatelessWidget {
   final String text;

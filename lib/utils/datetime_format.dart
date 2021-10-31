@@ -9,3 +9,9 @@ String formatTime(String date) {
   return DateFormat('hh:mm a')
       .format(DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(date));
 }
+
+
+String formatDateTime(String date) {
+  return DateFormat('dd MMM yyyy hh:mm a')
+      .format(DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(date));
+}

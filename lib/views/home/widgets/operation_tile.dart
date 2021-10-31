@@ -28,22 +28,23 @@ class OperationTile extends StatelessWidget {
         closedBuilder: (_, __) => Container(
           padding: const EdgeInsets.symmetric(vertical: 8),
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey[300]!,
-                  width: 1,
-                ),
-                top: BorderSide(
-                  color: Colors.grey[300]!,
-                  width: 1,
-                ),
-              )),
+            color: Colors.white,
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey[300]!,
+                width: 1,
+              ),
+              top: BorderSide(
+                color: Colors.grey[300]!,
+                width: 1,
+              ),
+            ),
+          ),
           child: ListTile(
             title: DisplayText(
               text: '+ ${operation.amount} mutez',
               fontWeight: FontWeight.w600,
-              color: Colors.green[300],
+              color: Colors.green[400],
             ),
             subtitle: Column(
               mainAxisAlignment: MainAxisAlignment.start,

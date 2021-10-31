@@ -1,3 +1,5 @@
+import 'package:anthos/utils/datetime_format.dart';
+import 'package:anthos/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:timelines/timelines.dart';
 
@@ -14,70 +16,39 @@ class OperationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> details = [
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DisplayText(
-            text: '${operation.amount} mutez was received',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+      OperationDetailCard(
+        keyText: 'Amount Transacted',
+        value: '${operation.amount} mutez',
       ),
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DisplayText(
-            text: 'from ${operation.sender.address}',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+      OperationDetailCard(
+        keyText: 'Sender',
+        value: operation.sender.address,
       ),
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DisplayText(
-            text: 'with the transaction hash ${operation.hash}',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+      OperationDetailCard(
+        keyText: 'Tx Hash',
+        value: operation.hash,
+        valueFontSize: 12,
       ),
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DisplayText(
-            text: 'on block ${operation.block}',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+      OperationDetailCard(
+        keyText: 'Block Hash',
+        value: operation.block,
+        valueFontSize: 12,
       ),
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DisplayText(
-            text: 'with ${operation.gasUsed} gas used',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+      OperationDetailCard(
+        keyText: 'Gas Used',
+        value: operation.gasUsed.toString(),
       ),
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DisplayText(
-            text: 'and  ${operation.gasLimit} gas limit',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+      OperationDetailCard(
+        keyText: 'Gas Limit',
+        value: operation.gasLimit.toString(),
       ),
-      DisplayText(
-        text: operation.bakerFee.toString(),
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
+      OperationDetailCard(
+        keyText: 'Baker Fee',
+        value: operation.bakerFee.toString(),
+      ),
+      OperationDetailCard(
+        keyText: 'Timestamp',
+        value: formatDateTime(operation.timestamp),
       ),
     ];
 
@@ -89,28 +60,98 @@ class OperationView extends StatelessWidget {
         leading: const SizedBox.expand(),
       ),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: FixedTimeline.tileBuilder(
-            theme: TimelineThemeData(
-              nodePosition: 0,
-              connectorTheme: const ConnectorThemeData(
-                thickness: 2.5,
-                color: Colors.grey,
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Stack(
+          children: [
+            Timeline.tileBuilder(
+              theme: TimelineThemeData(
+                nodePosition: 0,
+                connectorTheme: const ConnectorThemeData(
+                  thickness: 2.5,
+                  color: Colors.grey,
+                ),
+                indicatorTheme:
+                    const IndicatorThemeData(color: Colors.green, size: 25),
               ),
-              indicatorTheme:
-                  const IndicatorThemeData(color: Colors.green, size: 25),
+              builder: TimelineTileBuilder.connectedFromStyle(
+                connectionDirection: ConnectionDirection.before,
+                connectorStyleBuilder: (context, index) =>
+                    ConnectorStyle.solidLine,
+                lastConnectorStyle: ConnectorStyle.transparent,
+                indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
+                itemCount: details.length,
+                contentsBuilder: (context, index) => details[index],
+              ),
             ),
-            builder: TimelineTileBuilder.connectedFromStyle(
-              connectionDirection: ConnectionDirection.before,
-              connectorStyleBuilder: (context, index) =>
-                  ConnectorStyle.solidLine,
-              lastConnectorStyle: ConnectorStyle.transparent,
-              indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
-              // itemExtent: 70.0,
-              itemCount: details.length,
-              contentsBuilder: (context, index) => details[index],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: ElevatedDisplayTextButton(
+                  text: 'Go Back',
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
             ),
-          )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class OperationDetailCard extends StatelessWidget {
+  final String keyText;
+  final String value;
+  final double? keyTextFontSize;
+  final FontStyle? keyTextFontStyle;
+  final FontWeight? keyTextFontWeight;
+  final double? valueFontSize;
+  final FontWeight? valueFontWeight;
+  final Color? keyTextColor;
+
+  const OperationDetailCard({
+    Key? key,
+    required this.keyText,
+    required this.value,
+    this.keyTextFontSize = 16,
+    this.keyTextFontStyle = FontStyle.italic,
+    this.keyTextFontWeight = FontWeight.w700,
+    this.valueFontSize = 14,
+    this.valueFontWeight = FontWeight.w600,
+    this.keyTextColor = Colors.grey,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Column(
+            children: [
+              DisplayText(
+                text: keyText,
+                color: keyTextColor,
+                fontSize: keyTextFontSize,
+                fontWeight: keyTextFontWeight,
+                fontStyle: keyTextFontStyle,
+              ),
+              DisplayText(
+                text: value,
+                fontSize: valueFontSize,
+                fontWeight: valueFontWeight,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

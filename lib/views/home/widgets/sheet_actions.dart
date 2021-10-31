@@ -1,3 +1,9 @@
+import 'package:animations/animations.dart';
+import 'package:anthos/views/operation/recieve_operation.dart';
+import 'package:anthos/views/operation/scan_qr_code.dart';
+import 'package:anthos/views/operation/send_operation.dart';
+import 'package:flutter/cupertino.dart';
+
 import '../../../widgets/buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -21,16 +27,39 @@ class SheetActions extends StatelessWidget {
                 TransactionActionButton(
                   text: 'Send',
                   icon: Icons.send,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (_) => const SendOpertation(),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(width: 20),
                 TransactionActionButton(
-                  text: 'Recieve',
+                  text: 'Receive',
                   icon: Icons.download_rounded,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (_) => const ReceiveOperation(),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(width: 30),
-                const QRCodeButton(),
+                QRCodeButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   CupertinoPageRoute(
+                    //     builder: (_) => const ScanQRCode(),
+                    //   ),
+                    // );
+                  },
+                ),
               ],
             )
           ],

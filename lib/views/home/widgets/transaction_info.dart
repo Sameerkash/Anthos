@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/operation/operation.dart';
@@ -30,41 +29,44 @@ class TransactionInfo extends StatelessWidget {
             ),
           ),
           color: Colors.white,
-          child: CustomScrollView(controller: scrollController, slivers: [
-            if (isLoading)
-              const SliverToBoxAdapter(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            if (!isLoading && operatoins.isEmpty)
-              const SliverToBoxAdapter(
-                  child: DisplayText(
-                text: 'Oops, No Operations to show',
-              )),
-            if (!isLoading && operatoins.isNotEmpty) ...[
-              const SheetActions(),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
-                    'Transactions',
-                    style: TextStyle(fontSize: 22, color: Colors.indigo),
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              if (isLoading)
+                const SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return OperationTile(
-                      operation: operatoins[index],
-                    );
-                  },
-                  childCount: operatoins.length,
+              if (!isLoading && operatoins.isEmpty)
+                const SliverToBoxAdapter(
+                    child: DisplayText(
+                  text: 'Oops, No Operations to show',
+                )),
+              if (!isLoading && operatoins.isNotEmpty) ...[
+                const SheetActions(),
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      'Transactions',
+                      style: TextStyle(fontSize: 22, color: Colors.indigo),
+                    ),
+                  ),
                 ),
-              ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return OperationTile(
+                        operation: operatoins[index],
+                      );
+                    },
+                    childCount: operatoins.length,
+                  ),
+                ),
+              ],
             ],
-          ]),
+          ),
         );
       },
     );

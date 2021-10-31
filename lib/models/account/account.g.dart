@@ -30,12 +30,12 @@ _$UserAccount _$$UserAccountFromJson(Map<String, dynamic> json) =>
     _$UserAccount(
       address: json['address'] as String,
       balance: json['balance'] as int,
+      secret: json['secret'] as String?,
       publicKey: json['publicKey'] as String?,
       alias: json['alias'] as String?,
       revealed: json['revealed'] as bool?,
       counter: json['counter'] as int?,
       privateKey: json['privateKey'] as String?,
-      secret: json['secret'] as String?,
       delegationLevel: json['delegationLevel'] as int?,
       delegationTime: json['delegationTime'] as String?,
       numContracts: json['numContracts'] as int?,
@@ -55,12 +55,12 @@ Map<String, dynamic> _$$UserAccountToJson(_$UserAccount instance) =>
     <String, dynamic>{
       'address': instance.address,
       'balance': instance.balance,
+      'secret': instance.secret,
       'publicKey': instance.publicKey,
       'alias': instance.alias,
       'revealed': instance.revealed,
       'counter': instance.counter,
       'privateKey': instance.privateKey,
-      'secret': instance.secret,
       'delegationLevel': instance.delegationLevel,
       'delegationTime': instance.delegationTime,
       'numContracts': instance.numContracts,
@@ -80,7 +80,7 @@ _$ContractAccount _$$ContractAccountFromJson(Map<String, dynamic> json) =>
     _$ContractAccount(
       kind: json['kind'] as String,
       privateKey: json['privateKey'] as String,
-      secret: json['secret'] as String,
+      secret: json['secret'] as String?,
       address: json['address'] as String,
       tzips:
           (json['tzips'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -131,16 +131,16 @@ _$EmptyAccount _$$EmptyAccountFromJson(Map<String, dynamic> json) =>
     _$EmptyAccount(
       address: json['address'] as String,
       balance: json['balance'] as int? ?? 0,
-      counter: json['counter'] as int?,
-      privateKey: json['privateKey'] as String?,
       secret: json['secret'] as String?,
+      privateKey: json['privateKey'] as String,
+      counter: json['counter'] as int?,
     );
 
 Map<String, dynamic> _$$EmptyAccountToJson(_$EmptyAccount instance) =>
     <String, dynamic>{
       'address': instance.address,
       'balance': instance.balance,
-      'counter': instance.counter,
-      'privateKey': instance.privateKey,
       'secret': instance.secret,
+      'privateKey': instance.privateKey,
+      'counter': instance.counter,
     };

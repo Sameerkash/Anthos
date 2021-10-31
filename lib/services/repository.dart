@@ -16,6 +16,10 @@ class Repository {
     'Granada': 'api.granadanet.tzkt.io',
   };
 
+  Map<String, String> networksChains = {
+    'Mainnet': 'https://mainnet.smartpy.io',
+    'Granada': 'https://granadanet.smartpy.io',
+  };
   final storage = const FlutterSecureStorage();
 
   sembast.Database? _db;
@@ -59,10 +63,7 @@ class Repository {
   }) async {
     try {
       var url = Uri.https(
-          networks[network]!,
-          // 'api.granadanet.tzkt.io',
-          '/v1/accounts/$address',
-          {'metadata': 'true'});
+          networks[network]!, '/v1/accounts/$address', {'metadata': 'true'});
       final res = await http.get(url);
 
       return Account.fromJson(jsonDecode(res.body));

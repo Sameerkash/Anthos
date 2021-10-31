@@ -1,3 +1,5 @@
+import 'package:tezster_dart/tezster_dart.dart';
+
 import '../../models/tezos/tezos.dart';
 import '../../provider/provider.dart';
 import '../../services/repository.dart';
@@ -66,6 +68,42 @@ class HomeVM extends StateNotifier<HomeState> {
         userAccount: currentState.userAccount,
         operations: operations,
       );
+    }
+  }
+
+  void sendTransaction(
+      {required double ammount, required String account}) async {
+    List<String> keys = await TezsterDart.getKeysFromMnemonicAndPassphrase(
+        mnemonic:
+            'uphold mushroom virus inherit dish private cactus parent force frog ethics word',
+        passphrase: '');
+    final currentState = state;
+    final secret = keys[0];
+    final publickeyHash = keys[1];
+
+    print('$keys');
+
+    if (currentState is _Data) {
+      final keyStore = KeyStoreModel(
+        publicKey: currentState.userAccount!.address,
+        secretKey: secret,
+        publicKeyHash: publickeyHash,
+      );
+
+      var signer = await TezsterDart.createSigner(
+          TezsterDart.writeKeyWithHint(keyStore.secretKey, 'edsk'));
+      const network = 'Granada';
+
+      final result = await TezsterDart.sendTransactionOperation(
+        repo.networksChains[network]!,
+        signer,
+        keyStore,
+        account,
+        ammount.toInt(),
+        10000,
+      );
+
+      print(result);
     }
   }
 }
