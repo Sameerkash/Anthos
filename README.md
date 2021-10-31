@@ -28,6 +28,10 @@ A Tezos Wallet built using Flutter at Hackout 2021
 - Lack of a Tezos mentor made it hard while figure out the project
 - The hackathon was slightly less than 48 hours which made it challenging to develop and design the application
 
+**Use the release tab to grab and test apk**
+
+Also find a funded test account below 😁
+
 ### Funded TestAccount
 
 ```
