@@ -1,3 +1,4 @@
+import 'package:anthos/widgets/loading.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/account/account.dart';
@@ -41,10 +42,10 @@ class TransactionInfo extends StatelessWidget {
               slivers: [
                 if (isLoading)
                   const SliverToBoxAdapter(
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 200, left: 100),
-                        child: CircularProgressIndicator(),
+                    child: SizedBox(
+                      height: 400,
+                      child: Loading(
+                        enabled: true,
                       ),
                     ),
                   ),

@@ -6,6 +6,7 @@ import '../../../widgets/display.text.dart';
 class AmountPage extends StatelessWidget {
   final TextEditingController controller;
   final void Function() onSend;
+
   final bool? isSending;
   const AmountPage({
     Key? key,
@@ -16,6 +17,13 @@ class AmountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> suggestedAmount = [
+      '50',
+      '100',
+      '150',
+      '200',
+    ];
+
     return Stack(
       children: [
         Column(
@@ -60,22 +68,16 @@ class AmountPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AmountSuggestionChip(
-                  label: '50',
-                  onTap: () {},
-                ),
-                AmountSuggestionChip(
-                  label: '100',
-                  onTap: () {},
-                ),
-                AmountSuggestionChip(
-                  label: '150',
-                  onTap: () {},
-                ),
-                AmountSuggestionChip(
-                  label: '500',
-                  onTap: () {},
-                ),
+                ...suggestedAmount
+                    .map(
+                      (amount) => AmountSuggestionChip(
+                        label: amount,
+                        onTap: () {
+                          controller.text = amount;
+                        },
+                      ),
+                    )
+                    .toList(),
               ],
             ),
           ],

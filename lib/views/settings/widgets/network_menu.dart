@@ -1,9 +1,14 @@
-import '../../../widgets/display.text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/display.text.dart';
+
 class NetworkMenu extends StatelessWidget {
+  final void Function(String?) onChanged;
+  final String network;
   const NetworkMenu({
     Key? key,
+    required this.onChanged,
+    required this.network,
   }) : super(key: key);
 
   @override
@@ -28,15 +33,23 @@ class NetworkMenu extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.8,
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: DropdownButton<String>(
-            value: 'Granada',
-            style: const TextStyle(color: Colors.white),
+            value: network,
+            dropdownColor: Colors.indigo,
+            underline: Container(),
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: Colors.white,
+            ),
             items: <String>['Granada', 'Mainnet']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: DisplayText(
-                  text: value,
-                  color: Colors.white,
+                child: Container(
+                  color: Colors.indigo,
+                  child: DisplayText(
+                    text: value,
+                    color: Colors.white,
+                  ),
                 ),
               );
             }).toList(),
@@ -48,7 +61,7 @@ class NetworkMenu extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            onChanged: (value) {},
+            onChanged: onChanged,
           ),
         ),
       ],

@@ -40,7 +40,7 @@ class SendOpertation extends HookWidget {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           AddressPage(
             addressController: _addressController,
@@ -58,7 +58,7 @@ class SendOpertation extends HookWidget {
                   amountController.text.isNotEmpty) {
                 await home.sendTransaction(
                   ammount: 1.0,
-                  account: 'tz1WeU9Q6r5AyLfaDajKVmGjuH8nmnUYbM8u',
+                  account: _addressController.text,
                 );
 
                 ScaffoldMessenger.of(context).showSnackBar(

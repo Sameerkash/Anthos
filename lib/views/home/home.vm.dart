@@ -36,12 +36,9 @@ class HomeVM extends StateNotifier<HomeState> {
   }
 
   Future<void> getAccount() async {
-    const network = 'Granada';
-
     final userAccounLocal = await repo.getUserAccountLocal();
     final address = userAccounLocal!.address;
-
-    // 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
+    final network = userAccounLocal.prefferedNetwork;
 
     /// API Calls
     final account = await repo.getAccount(network: network, address: address);
@@ -61,13 +58,12 @@ class HomeVM extends StateNotifier<HomeState> {
   }
 
   void getOperations() async {
-    const network = 'Granada';
-    // const address = 'tz1VuLR4ckBigsjreTGUuTtVcX358ewfRjU4';
-
     final currentState = state;
     if (currentState is _Data) {
+      final userAccount = currentState.userAccountLocal;
+
       final operations = await repo.getOperations(
-        network: network,
+        network: userAccount!.prefferedNetwork,
         address: currentState.userAccountLocal!.address,
       );
 
@@ -96,7 +92,7 @@ class HomeVM extends StateNotifier<HomeState> {
 
       var signer = await TezsterDart.createSigner(
           TezsterDart.writeKeyWithHint(keyStore.secretKey, 'edsk'));
-      const network = 'Granada';
+      final network = userAccount.prefferedNetwork;
 
       await TezsterDart.sendTransactionOperation(
         repo.networksChains[network]!,
@@ -108,6 +104,22 @@ class HomeVM extends StateNotifier<HomeState> {
       );
 
       state = currentState.copyWith(isSending: false);
+      getAccount();
+    }
+  }
+
+  Future<void> changeNetwork({required String network}) async {
+    final currentState = state;
+    if (currentState is _Data) {
+      final userLocal = currentState.userAccountLocal!.copyWith(
+        prefferedNetwork: network,
+      );
+      state = currentState.copyWith(
+        userAccountLocal: userLocal,
+      );
+
+      await repo.setUserAccountLocal(userLocal);
+
       getAccount();
     }
   }

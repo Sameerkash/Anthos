@@ -52,6 +52,7 @@ dependencies:
   intl: ^0.17.0
   timelines: ^0.1.0
   qr_flutter: ^4.0.0
+  shimmer: ^2.0.0
   # qr_code_scanner: ^0.5.2
 
 dev_dependencies:

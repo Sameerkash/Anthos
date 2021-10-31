@@ -58,16 +58,19 @@ class HomeView extends HookWidget {
               ),
             ),
           ),
-          const Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15.0,
-                vertical: 8,
-              ),
-              child: Text(
-                'Network',
-                style: TextStyle(fontSize: 14, color: Colors.white),
+          home.maybeMap(
+            orElse: () => const Text('Network'),
+            data: (data) => Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15.0,
+                  vertical: 8,
+                ),
+                child: Text(
+                  data.userAccountLocal!.prefferedNetwork,
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -94,12 +97,13 @@ class HomeView extends HookWidget {
                   ),
                 ),
               ),
-              loading: (_) => const SizedBox(
-                  height: 5,
-                  width: 500,
-                  child: LinearProgressIndicator(
-                    color: Colors.indigo,
-                  )),
+              loading: (_) => SizedBox(
+                height: 5,
+                width: width,
+                child: const LinearProgressIndicator(
+                  color: Colors.indigo,
+                ),
+              ),
               orElse: () => Container(),
             ),
           ),
