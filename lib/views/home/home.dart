@@ -52,7 +52,7 @@ class HomeView extends HookWidget {
                   ),
                   child: const Icon(
                     Icons.settings,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ),
               ),
@@ -87,13 +87,15 @@ class HomeView extends HookWidget {
                     alignment: Alignment.center,
                     child: PageView(
                       children: [
-                        WalletInfo(
-                          account: data.userAccount!,
-                          tezos: data.tezos,
-                        ),
-                        TezosInfo(
-                          tezos: data.tezos!,
-                        )
+                        if (data.userAccount != null)
+                          WalletInfo(
+                            account: data.userAccount!,
+                            tezos: data.tezos,
+                          ),
+                        if (data.tezos != null)
+                          TezosInfo(
+                            tezos: data.tezos!,
+                          )
                       ],
                     ),
                   ),
