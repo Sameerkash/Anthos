@@ -10,7 +10,6 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(14.0),
       child: Shimmer.fromColors(
@@ -22,18 +21,22 @@ class Loading extends StatelessWidget {
             padding: const EdgeInsets.only(
               bottom: 8.0,
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: width * 0.85,
-                  height: 60.0,
-                  color: Colors.white,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      height: 60.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

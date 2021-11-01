@@ -74,37 +74,39 @@ class HomeView extends HookWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 60,
-            right: width / 3.5,
-            child: home.maybeMap(
-              data: (data) => Container(
-                alignment: Alignment.center,
-                height: height / 4,
-                width: width * 0.5,
-                child: Align(
+          Padding(
+            padding: EdgeInsets.only(top: height * 0.05),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: home.maybeMap(
+                data: (data) => Container(
                   alignment: Alignment.center,
-                  child: PageView(
-                    children: [
-                      WalletInfo(
-                        account: data.userAccount!,
-                        tezos: data.tezos,
-                      ),
-                      TezosInfo(
-                        tezos: data.tezos!,
-                      )
-                    ],
+                  height: height / 4,
+                  width: width * 0.5,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: PageView(
+                      children: [
+                        WalletInfo(
+                          account: data.userAccount!,
+                          tezos: data.tezos,
+                        ),
+                        TezosInfo(
+                          tezos: data.tezos!,
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              loading: (_) => SizedBox(
-                height: 5,
-                width: width,
-                child: const LinearProgressIndicator(
-                  color: Colors.indigo,
+                loading: (_) => SizedBox(
+                  height: 5,
+                  width: width,
+                  child: const LinearProgressIndicator(
+                    color: Colors.indigo,
+                  ),
                 ),
+                orElse: () => Container(),
               ),
-              orElse: () => Container(),
             ),
           ),
           home.maybeWhen(

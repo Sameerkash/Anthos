@@ -4,6 +4,8 @@ import '../../widgets/display.text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'auth.vm.dart';
 
 class CreateAccount extends HookWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -15,6 +17,10 @@ class CreateAccount extends HookWidget {
 
     final data = auth.maybeMap(data: (data) => data, orElse: () => null);
     final noData = auth.maybeMap(noData: (data) => data, orElse: () => null);
+
+    if (auth is Authenticated) {
+      context.go('/');
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -109,7 +115,6 @@ class CreateAccount extends HookWidget {
                     text: 'I Confirm',
                     onPressed: () async {
                       await authNotifier.getAccount();
-                      Navigator.pop(context);
                     },
                     color: Colors.white,
                     textColor: Colors.black,

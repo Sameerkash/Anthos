@@ -1,4 +1,4 @@
-import 'package:anthos/widgets/loading.dart';
+import '../../../widgets/loading.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/account/account.dart';

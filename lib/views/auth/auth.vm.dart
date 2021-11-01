@@ -83,7 +83,7 @@ class AuthVM extends StateNotifier<AuthState> {
     getAccount();
   }
 
-  void resetAccount() async {
+  Future<void> resetAccount() async {
     state = const AuthState.loading();
 
     await repo.deleteAccount();
