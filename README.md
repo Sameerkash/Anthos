@@ -2,7 +2,7 @@
 
 A Tezos Wallet built using Flutter at Hackout 2021
 
-# **Winner 3rd Place 🏅**
+# **Winner Tezos Track Prize, Hackout 3rd Place 🏅**
 
 ![Hackout](https://i.ytimg.com/vi/N-dzvmuns7o/maxresdefault.jpg)
 
